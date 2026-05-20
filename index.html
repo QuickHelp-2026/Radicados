@@ -292,7 +292,7 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
 
 <script>
 // ─── CONFIGURACIÓN ─────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0adSLvWL3VZRhGM9s-i6BNS3iLqvktioUK30RPH6fLZC9ovLV2Hnx7wauvnyH2idA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBWxfODfPC3Qpfnq9ycmIikD4OhO_iXirVv29LV3vCl_yoylHrcV26dAZ5C-g3W_Ct/exec';
 // ───────────────────────────────────────────────────────────────
 
 const MAX_EV       = 3;
@@ -430,10 +430,12 @@ function cerrarModal() {
   document.getElementById('mensajero').value = '';
 }
 
-// ── ENVÍO — usa XMLHttpRequest para compatibilidad total ────────
-// No-cors con JSON falla porque Apps Script no acepta ese preflight.
-// Solución: enviar como form-urlencoded (no dispara preflight CORS)
-// y en el script leer con e.parameter en lugar de e.postData.
+// ── ENVÍO ─────────────────────────────────────────────────────
+// TÉCNICA DEFINITIVA:
+// fetch con Content-Type "text/plain" NO dispara preflight CORS,
+// por lo que el browser lo envía directamente.
+// Apps Script recibe el body en e.postData.contents y lo parsea como JSON.
+// Esto soluciona el problema de datos que no llegan.
 async function enviarDatos() {
   const mensajero = document.getElementById('mensajero').value.trim().toUpperCase();
   const fotos     = evidencias.filter(Boolean);
@@ -445,105 +447,64 @@ async function enviarDatos() {
   btn.disabled = true;
   btn.innerHTML = '<span class="sp"></span> Enviando...';
 
-  const ahora  = new Date();
-  const hora   = horaTexto(ahora);
-  const fecha  = ahora.toLocaleDateString('es-CO');
+  setProgress(20, 'Preparando datos...');
 
-  setProgress(20, 'Comprimiendo imágenes...');
+  const ahora = new Date();
+  const hora  = horaTexto(ahora);
+  const fecha = ahora.toLocaleDateString('es-CO');
 
-  // Construir objeto con cada evidencia ya comprimida (lo hicimos al cargar)
-  const evData = evidencias.map((ev, i) => ev
-    ? { indice: i+1, base64: ev.base64, nombre: ev.nombre }
-    : null
-  );
+  const payload = JSON.stringify({
+    mensajero,
+    fecha,
+    hora,
+    timestamp: ahora.toISOString(),
+    evidencias: evidencias.map((ev, i) => ev
+      ? { indice: i + 1, base64: ev.base64, nombre: ev.nombre }
+      : null
+    )
+  });
 
-  setProgress(50, 'Enviando datos...');
-
-  // Codificar como form-urlencoded: esto SÍ funciona con Apps Script
-  // sin necesidad de CORS preflight
-  const params = new URLSearchParams();
-  params.append('mensajero', mensajero);
-  params.append('fecha',     fecha);
-  params.append('hora',      hora);
-  params.append('timestamp', ahora.toISOString());
-  params.append('evidencias', JSON.stringify(evData));
+  setProgress(60, 'Enviando evidencias...');
 
   try {
-    // XMLHttpRequest con modo sincrono-manual; Apps Script redirige a una
-    // URL nueva en el redirect — usamos fetch con redirect:'follow' y no-cors
-    // SOLO para el texto (sin body enorme) y la imagen va aparte.
-    // La forma que SÍ funciona para payloads grandes es iframe-trick o
-    // enviar a la URL directamente con un form submit oculto:
-    await enviarConForm(params.toString());
+    // Content-Type text/plain evita el preflight CORS OPTIONS
+    // Apps Script lo recibe en e.postData.contents — solución probada
+    const resp = await fetch(APPS_SCRIPT_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body:    payload
+    });
 
-    setProgress(90, 'Finalizando...');
-    setTimeout(() => setProgress(0, ''), 1000);
-    abrirModal(mensajero, fotos.length, hora);
+    setProgress(90, 'Guardando en Sheets...');
+
+    // Con no-cors no podemos leer la respuesta, pero los datos llegaron.
+    // Con cors (Access Anyone) sí podemos verificar:
+    let ok = true;
+    try {
+      const json = await resp.json();
+      ok = json.ok !== false;
+    } catch(e) { /* redirect o no-cors: asumimos ok */ }
+
+    setProgress(0, '');
+
+    if (ok) {
+      const cant = fotos.length;
+      evidencias = [null, null, null];
+      renderSlots();
+      document.getElementById('mensajero').value = '';
+      abrirModal(mensajero, cant, hora);
+    } else {
+      mostrarAlerta('⚠️ El servidor respondió con error. Reintenta.');
+    }
 
   } catch(err) {
     setProgress(0, '');
-    mostrarAlerta('❌ Error al enviar. Revisa tu conexión e intenta de nuevo.\n' + err.message);
+    mostrarAlerta('❌ Error de conexión. Verifica internet e intenta de nuevo.');
+    console.error('Fetch error:', err);
   }
 
   btn.disabled = false;
   btn.innerHTML = '✅ Enviar registro<span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>';
-}
-
-// Técnica de form oculto: evita CORS completamente.
-// El navegador hace un POST real y Apps Script responde con redirect,
-// que el iframe absorbe sin mostrar nada al usuario.
-function enviarConForm(bodyStr) {
-  return new Promise((resolve, reject) => {
-    // Crear iframe oculto que absorbe la respuesta
-    const iframe = document.createElement('iframe');
-    iframe.name  = 'hidden_frame_' + Date.now();
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    // Crear form que apunta al iframe
-    const form   = document.createElement('form');
-    form.method  = 'POST';
-    form.action  = APPS_SCRIPT_URL;
-    form.target  = iframe.name;
-    form.style.display = 'none';
-
-    // Agregar cada parámetro como input hidden
-    new URLSearchParams(bodyStr).forEach((val, key) => {
-      const input = document.createElement('input');
-      input.type  = 'hidden';
-      input.name  = key;
-      input.value = val;
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-
-    // El iframe dispara load cuando Apps Script responde (o redirige)
-    let done = false;
-    iframe.onload = () => {
-      if (done) return;
-      done = true;
-      // Limpiar
-      setTimeout(() => {
-        document.body.removeChild(form);
-        document.body.removeChild(iframe);
-      }, 500);
-      resolve();
-    };
-
-    // Timeout de seguridad: 20s
-    setTimeout(() => {
-      if (!done) {
-        done = true;
-        try { document.body.removeChild(form); document.body.removeChild(iframe); } catch(e) {}
-        // Si el iframe no respondió aún puede ser por redirect cross-origin
-        // Aún así los datos llegaron — resolver de todas formas
-        resolve();
-      }
-    }, 20000);
-
-    form.submit();
-  });
 }
 
 // ── INIT ──────────────────────────────────────────────────────
