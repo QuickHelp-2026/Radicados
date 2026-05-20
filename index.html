@@ -5,551 +5,561 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Cafam Biológicos – Radicados</title>
 <style>
-  :root {
-    --azul:       #0D2E6E;
-    --azul-mid:   #1A4BA8;
-    --azul-light: #E6EDF8;
-    --azul-acc:   #2563EB;
-    --azul-pale:  #F0F4FC;
-    --rojo:       #C0392B;
-    --rojo-light: #FDECEA;
-    --gris:       #6B7280;
-    --gris-light: #F3F4F6;
-    --texto:      #1A1A2E;
-    --borde:      rgba(13,46,110,0.12);
-    --radio:      14px;
-    --font:       'Segoe UI', system-ui, sans-serif;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-  body {
-    font-family: var(--font);
-    background: #EEF2FA;
-    min-height: 100vh;
-    color: var(--texto);
-  }
-
-  header {
-    background: var(--azul);
-    color: #fff;
-    padding: 14px 20px 14px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 2px 12px rgba(13,46,110,0.25);
-  }
-
-  .logo-img {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-    flex-shrink: 0;
-  }
-
-  .header-text h1 { font-size: 15px; font-weight: 700; line-height: 1.2; letter-spacing: 0.2px; }
-  .header-text p  { font-size: 11px; opacity: 0.70; margin-top: 2px; }
-
-  .main { padding: 18px 14px 32px; max-width: 480px; margin: 0 auto; }
-
-  .card {
-    background: #fff;
-    border-radius: var(--radio);
-    border: 1px solid var(--borde);
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: 0 1px 6px rgba(13,46,110,0.06);
-  }
-
-  .card-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--azul-mid);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-
-  .card-title svg { flex-shrink: 0; }
-
-  label {
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--gris);
-    margin-bottom: 6px;
-  }
-
-  input[type="text"], input[type="time"] {
-    width: 100%;
-    padding: 13px 16px;
-    font-size: 16px;
-    border: 1.5px solid #D1D5DB;
-    border-radius: 10px;
-    outline: none;
-    font-family: var(--font);
-    color: var(--texto);
-    background: #fff;
-    transition: border-color 0.18s, box-shadow 0.18s;
-    margin-bottom: 0;
-    text-transform: uppercase;
-  }
-
-  input[type="time"] { text-transform: none; }
-
-  input:focus {
-    border-color: var(--azul-acc);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
-  }
-
-  /* Hora */
-  .hora-display {
-    font-size: 34px;
-    font-weight: 800;
-    color: var(--azul);
-    text-align: center;
-    letter-spacing: 2px;
-    padding: 6px 0 2px;
-  }
-
-  .fecha-display {
-    font-size: 13px;
-    color: var(--gris);
-    text-align: center;
-    margin-bottom: 16px;
-  }
-
-  .hora-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .hora-row input { flex: 1; }
-
-  .btn-hora {
-    padding: 13px 14px;
-    background: var(--azul-light);
-    border: 1.5px solid var(--azul-mid);
-    border-radius: 10px;
-    color: var(--azul);
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .btn-hora:active { transform: scale(0.96); }
-
-  /* Cámara / Escáner */
-  .scan-area {
-    position: relative;
-    width: 100%;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 10px;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #cameraVideo {
-    width: 100%;
-    display: none;
-    border-radius: 12px;
-  }
-
-  #cameraCanvas { display: none; }
-
-  .scan-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-  }
-
-  .scan-frame {
-    width: 220px;
-    height: 100px;
-    border: 2.5px solid var(--azul-acc);
-    border-radius: 8px;
-    box-shadow: 0 0 0 4000px rgba(0,0,0,0.45);
-    position: relative;
-  }
-
-  .scan-frame::before, .scan-frame::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border-color: #fff;
-    border-style: solid;
-  }
-
-  .scan-frame::before { top: -2px; left: -2px; border-width: 3px 0 0 3px; border-radius: 4px 0 0 0; }
-  .scan-frame::after  { top: -2px; right: -2px; border-width: 3px 3px 0 0; border-radius: 0 4px 0 0; }
-
-  .scan-line {
-    position: absolute;
-    left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--azul-acc), transparent);
-    animation: scanMove 1.8s ease-in-out infinite;
-  }
-
-  @keyframes scanMove {
-    0%   { top: 8px; }
-    50%  { top: calc(100% - 10px); }
-    100% { top: 8px; }
-  }
-
-  .scan-label {
-    color: #fff;
-    font-size: 12px;
-    margin-top: 12px;
-    opacity: 0.85;
-    font-weight: 500;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-  }
-
-  .scan-inactive {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 20px;
-    gap: 12px;
-    width: 100%;
-  }
-
-  .scan-inactive-icon {
-    font-size: 48px;
-    line-height: 1;
-  }
-
-  .scan-inactive p {
-    color: #aaa;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .scan-btns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .btn-scan, .btn-foto {
-    padding: 13px 12px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    transition: transform 0.15s;
-  }
-
-  .btn-scan {
-    background: var(--azul-mid);
-    color: #fff;
-    border: none;
-  }
-
-  .btn-foto {
-    background: var(--azul-light);
-    color: var(--azul);
-    border: 1.5px solid var(--azul-mid);
-  }
-
-  .btn-scan:active, .btn-foto:active { transform: scale(0.96); }
-
-  #fileInput { display: none; }
-
-  /* OCR estado */
-  .ocr-status {
-    font-size: 13px;
-    color: var(--azul-mid);
-    text-align: center;
-    padding: 6px 0;
-    min-height: 24px;
-    font-weight: 500;
-  }
-
-  /* Badge count */
-  .badge-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--azul-acc);
-    color: #fff;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 8px;
-    margin-left: auto;
-  }
-
-  /* Lista radicados */
-  .lista-radicados {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 8px;
-    max-height: 280px;
-    overflow-y: auto;
-  }
-
-  .radicado-item {
-    display: flex;
-    align-items: center;
-    background: var(--azul-pale);
-    border-radius: 10px;
-    border: 1px solid var(--borde);
-    padding: 10px 12px;
-    gap: 10px;
-    animation: slideIn 0.2s ease;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .radicado-num {
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--azul-acc);
-    min-width: 20px;
-    text-align: center;
-  }
-
-  .radicado-text {
-    flex: 1;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--texto);
-    font-family: 'Courier New', monospace;
-    letter-spacing: 0.3px;
-    word-break: break-all;
-  }
-
-  .radicado-hora {
-    font-size: 11px;
-    color: var(--gris);
-    white-space: nowrap;
-  }
-
-  .btn-eliminar {
-    background: none;
-    border: none;
-    color: #CBD5E1;
-    font-size: 17px;
-    cursor: pointer;
-    padding: 3px 5px;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .btn-eliminar:active { color: var(--rojo); }
-
-  .empty-state {
-    text-align: center;
-    padding: 24px 0 8px;
-    color: #C0C8D8;
-    font-size: 14px;
-  }
-
-  .empty-icon { font-size: 36px; margin-bottom: 8px; }
-
-  /* Hint */
-  .hint {
-    font-size: 12px;
-    color: var(--gris);
-    text-align: center;
-    margin-top: 6px;
-  }
-
-  /* Botón enviar */
-  .btn-enviar {
-    width: 100%;
-    padding: 18px;
-    background: var(--azul);
-    color: #fff;
-    border: none;
-    border-radius: var(--radio);
-    font-size: 17px;
-    font-weight: 800;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: background 0.2s;
-    box-shadow: 0 4px 16px rgba(13,46,110,0.3);
-  }
-
-  .btn-enviar:active { background: var(--azul-mid); }
-  .btn-enviar:disabled { background: #94A3B8; cursor: not-allowed; box-shadow: none; }
-
-  .btn-enviar-sub {
-    display: block;
-    font-size: 12px;
-    font-weight: 400;
-    opacity: 0.75;
-    margin-top: 3px;
-  }
-
-  /* Spinner */
-  .spinner {
-    display: inline-block;
-    width: 16px; height: 16px;
-    border: 2px solid rgba(255,255,255,0.35);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    vertical-align: -3px;
-    margin-right: 6px;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Alerta inline */
-  .alerta {
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 14px;
-    display: none;
-  }
-
-  .alerta.error {
-    background: var(--rojo-light);
-    color: #7B1A14;
-    border: 1px solid rgba(192,57,43,0.2);
-  }
-
-  .alerta.visible { display: block; }
-
-  /* ── MODAL DE CONFIRMACIÓN ── */
-  .modal-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(13,46,110,0.55);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(2px);
-  }
-
-  .modal-backdrop.visible { display: flex; }
-
-  .modal {
-    background: #fff;
-    border-radius: 20px;
-    padding: 32px 24px 24px;
-    width: 100%;
-    max-width: 340px;
-    text-align: center;
-    animation: popIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
-  }
-
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.8); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
-  .modal-icono {
-    width: 72px; height: 72px;
-    background: #E8F5E9;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 18px;
-    font-size: 38px;
-  }
-
-  .modal h2 {
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--azul);
-    margin-bottom: 10px;
-  }
-
-  .modal p {
-    font-size: 14px;
-    color: var(--gris);
-    line-height: 1.6;
-    margin-bottom: 6px;
-  }
-
-  .modal-detalle {
-    background: var(--azul-pale);
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin: 14px 0 20px;
-    font-size: 14px;
-    color: var(--azul);
-    font-weight: 600;
-  }
-
-  .modal-detalle span {
-    display: block;
-    font-size: 12px;
-    color: var(--gris);
-    font-weight: 400;
-    margin-bottom: 2px;
-  }
-
-  .btn-modal-ok {
-    width: 100%;
-    padding: 15px;
-    background: var(--azul);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .btn-modal-ok:active { background: var(--azul-mid); }
-
-  /* Separador de sección */
-  .seccion-sep {
-    height: 1px;
-    background: var(--borde);
-    margin: 12px 0 14px;
-  }
+:root {
+  --azul:       #0D2E6E;
+  --azul-mid:   #1A4BA8;
+  --azul-acc:   #2563EB;
+  --azul-light: #E6EDF8;
+  --azul-pale:  #F0F4FC;
+  --rojo:       #C0392B;
+  --rojo-light: #FDECEA;
+  --verde-ok:   #15803D;
+  --verde-bg:   #F0FDF4;
+  --gris:       #6B7280;
+  --gris-light: #F3F4F6;
+  --texto:      #111827;
+  --borde:      rgba(13,46,110,0.13);
+  --radio:      14px;
+  --font:       'Segoe UI', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body { font-family: var(--font); background: #EEF2FA; min-height: 100vh; color: var(--texto); }
+
+/* ── HEADER ── */
+header {
+  background: var(--azul);
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 14px rgba(13,46,110,0.28);
+}
+
+.logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
+}
+
+.hdr-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+
+.hdr-text h1 { color: #fff; font-size: 15px; font-weight: 700; }
+.hdr-text p  { color: rgba(255,255,255,0.65); font-size: 11px; margin-top: 2px; }
+
+/* ── LAYOUT ── */
+.main { padding: 18px 14px 36px; max-width: 480px; margin: 0 auto; }
+
+.card {
+  background: #fff;
+  border-radius: var(--radio);
+  border: 1px solid var(--borde);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 8px rgba(13,46,110,0.07);
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--azul-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+label { display: block; font-size: 13px; font-weight: 500; color: var(--gris); margin-bottom: 6px; }
+
+input[type="text"], input[type="time"] {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 16px;
+  border: 1.5px solid #D1D5DB;
+  border-radius: 10px;
+  outline: none;
+  font-family: var(--font);
+  color: var(--texto);
+  background: #fff;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+input[type="text"] { text-transform: uppercase; }
+input[type="time"] { text-transform: none; }
+
+input:focus {
+  border-color: var(--azul-acc);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.13);
+}
+
+/* ── HORA ── */
+.hora-display {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--azul);
+  text-align: center;
+  letter-spacing: 2px;
+  padding: 4px 0 2px;
+}
+
+.fecha-display {
+  font-size: 12px;
+  color: var(--gris);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.hora-row { display: flex; align-items: center; gap: 10px; }
+.hora-row input { flex: 1; }
+
+.btn-hora {
+  padding: 13px 14px;
+  background: var(--azul-light);
+  border: 1.5px solid var(--azul-mid);
+  border-radius: 10px;
+  color: var(--azul);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-hora:active { transform: scale(0.96); }
+
+/* ── ZONA DE ADJUNTO ── */
+.drop-zone {
+  border: 2px dashed #BFCFE8;
+  border-radius: 12px;
+  background: var(--azul-pale);
+  padding: 28px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--azul-acc);
+  background: #E0EAFF;
+}
+
+.drop-icon { font-size: 40px; margin-bottom: 8px; display: block; }
+
+.drop-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--azul);
+  margin-bottom: 4px;
+}
+
+.drop-sub {
+  font-size: 12px;
+  color: var(--gris);
+  line-height: 1.5;
+}
+
+#fileInput { display: none; }
+
+/* Botones de adjunto */
+.attach-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.btn-attach {
+  padding: 13px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: transform 0.15s;
+}
+
+.btn-attach.primary {
+  background: var(--azul-mid);
+  color: #fff;
+  border: none;
+}
+
+.btn-attach.secondary {
+  background: var(--azul-light);
+  color: var(--azul);
+  border: 1.5px solid var(--azul-mid);
+}
+
+.btn-attach:active { transform: scale(0.96); }
+
+/* ── OCR STATUS ── */
+.ocr-status {
+  font-size: 13px;
+  color: var(--azul-mid);
+  text-align: center;
+  min-height: 22px;
+  font-weight: 500;
+  padding: 4px 0;
+}
+
+/* ── PREVIEW DE IMAGEN ── */
+.img-preview-wrap {
+  display: none;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1.5px solid var(--azul-light);
+}
+
+.img-preview-wrap img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  background: #f8faff;
+  display: block;
+}
+
+.img-preview-bar {
+  background: var(--azul);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-remove-img {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Texto extraído */
+.ocr-result-box {
+  display: none;
+  background: var(--azul-pale);
+  border: 1.5px solid var(--azul-light);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.ocr-result-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--azul-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.ocr-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ocr-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: #fff;
+  border: 1.5px solid var(--azul-light);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  color: var(--azul);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ocr-chip:hover { border-color: var(--azul-acc); background: var(--azul-pale); }
+.ocr-chip.seleccionado { background: var(--azul-mid); color: #fff; border-color: var(--azul-mid); }
+
+.chip-add-icon { font-size: 14px; }
+
+/* Separador */
+.sep { height: 1px; background: var(--borde); margin: 14px 0; }
+
+/* ── LISTA ── */
+.badge-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--azul-acc);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  margin-left: auto;
+}
+
+.lista-radicados {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.radicado-item {
+  background: var(--azul-pale);
+  border-radius: 10px;
+  border: 1px solid var(--borde);
+  overflow: hidden;
+  animation: slideIn 0.22s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.radicado-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  gap: 9px;
+}
+
+.radicado-num {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--azul-acc);
+  min-width: 20px;
+  text-align: center;
+}
+
+.radicado-text {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--texto);
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+.radicado-hora { font-size: 11px; color: var(--gris); white-space: nowrap; }
+
+.radicado-thumb {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--azul-light);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn-eliminar {
+  background: none;
+  border: none;
+  color: #CBD5E1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 3px 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btn-eliminar:active { color: var(--rojo); }
+
+.empty-state {
+  text-align: center;
+  padding: 28px 0 10px;
+  color: #C0C8D8;
+  font-size: 14px;
+}
+
+.empty-icon { font-size: 36px; margin-bottom: 8px; }
+
+.hint { font-size: 12px; color: var(--gris); text-align: center; margin-top: 10px; line-height: 1.5; }
+
+/* ── BOTÓN ENVIAR ── */
+.btn-enviar {
+  width: 100%;
+  padding: 18px;
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  border-radius: var(--radio);
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(13,46,110,0.32);
+  transition: background 0.2s;
+}
+
+.btn-enviar:active { background: var(--azul-mid); }
+.btn-enviar:disabled { background: #94A3B8; cursor: not-allowed; box-shadow: none; }
+
+.btn-enviar-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.72;
+  margin-top: 3px;
+}
+
+/* ── SPINNER ── */
+.spinner {
+  display: inline-block;
+  width: 15px; height: 15px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: -3px;
+  margin-right: 6px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── ALERTA INLINE ── */
+.alerta {
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  display: none;
+}
+
+.alerta.error  { background: var(--rojo-light); color: #7B1A14; border: 1px solid rgba(192,57,43,0.2); }
+.alerta.visible { display: block; }
+
+/* ── MODAL ── */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,46,110,0.60);
+  z-index: 100;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  backdrop-filter: blur(3px);
+}
+
+.modal-backdrop.visible { display: flex; }
+
+.modal {
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  padding: 30px 24px 36px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  animation: slideUp 0.28s cubic-bezier(0.34,1.4,0.64,1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.modal-check {
+  width: 68px; height: 68px;
+  background: var(--verde-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 36px;
+}
+
+.modal h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--azul);
+  margin-bottom: 8px;
+}
+
+.modal p { font-size: 14px; color: var(--gris); line-height: 1.6; margin-bottom: 0; }
+
+.modal-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 18px 0 22px;
+}
+
+.modal-card {
+  background: var(--azul-pale);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.modal-card-val {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--azul);
+}
+
+.modal-card-lbl {
+  font-size: 11px;
+  color: var(--azul-mid);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.modal-nombre {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--azul);
+  background: var(--azul-pale);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}
+
+.btn-modal-ok {
+  width: 100%;
+  padding: 16px;
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-modal-ok:active { background: var(--azul-mid); }
 </style>
 </head>
 <body>
 
-<!-- HEADER CON LOGO REAL -->
 <header>
   <img src="https://i.ibb.co/Tq23KgR9/download-removebg-preview.png"
-       class="logo-img"
-       alt="Cafam Biológicos"
-       onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';">
-  <div id="logoFallback" style="display:none; width:40px; height:40px; background:#1A4BA8; border-radius:50%; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">🧬</div>
-  <div class="header-text">
+       class="logo-img" alt="Cafam Biológicos"
+       onerror="this.outerHTML='<div style=\'width:38px;height:38px;background:#1A4BA8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;\'>🧬</div>'">
+  <div class="hdr-divider"></div>
+  <div class="hdr-text">
     <h1>Cafam Biológicos</h1>
     <p>Registro de Radicados</p>
   </div>
@@ -557,29 +567,24 @@
 
 <div class="main">
 
-  <!-- Alerta de error inline -->
   <div id="alerta" class="alerta error"></div>
 
-  <!-- ── TARJETA 1: MENSAJERO ── -->
+  <!-- MENSAJERO -->
   <div class="card">
     <div class="card-title">
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       Datos del mensajero
     </div>
-
-    <label for="mensajero">Tu nombre completo</label>
-    <input type="text" id="mensajero"
-           placeholder="Escribe tu nombre..."
-           autocomplete="off"
-           autocorrect="off"
-           spellcheck="false"
+    <label for="mensajero">Nombre completo</label>
+    <input type="text" id="mensajero" placeholder="Escribe tu nombre..."
+           autocomplete="off" autocorrect="off" spellcheck="false"
            oninput="this.value = this.value.toUpperCase()">
   </div>
 
-  <!-- ── TARJETA 2: HORA ── -->
+  <!-- HORA -->
   <div class="card">
     <div class="card-title">
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
       Hora de entrega
     </div>
     <div class="hora-display" id="horaActual">--:--</div>
@@ -590,382 +595,421 @@
     </div>
   </div>
 
-  <!-- ── TARJETA 3: RADICADOS / CÁMARA ── -->
+  <!-- RADICADOS / ADJUNTO -->
   <div class="card">
     <div class="card-title">
-      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-      Radicados
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Adjuntar documento
       <span class="badge-count" id="contadorBadge">0</span>
     </div>
 
-    <!-- Área de cámara -->
-    <div class="scan-area" id="scanArea">
-      <div class="scan-inactive" id="scanInactive">
-        <div class="scan-inactive-icon">📷</div>
-        <p>Usa la cámara para escanear<br>el radicado en la hoja</p>
-      </div>
-      <video id="cameraVideo" autoplay playsinline muted></video>
-      <canvas id="cameraCanvas"></canvas>
-      <div class="scan-overlay" id="scanOverlay" style="display:none;">
-        <div class="scan-frame">
-          <div class="scan-line"></div>
-        </div>
-        <div class="scan-label">Apunta al número de radicado</div>
-      </div>
+    <!-- Zona de arrastre -->
+    <div class="drop-zone" id="dropZone"
+         onclick="document.getElementById('fileGaleria').click()"
+         ondragover="dragOver(event)"
+         ondragleave="dragLeave(event)"
+         ondrop="dropFile(event)">
+      <span class="drop-icon">📄</span>
+      <div class="drop-title">Toca para adjuntar el documento</div>
+      <div class="drop-sub">Foto de la hoja, imagen o PDF<br>desde galería o computador</div>
     </div>
 
-    <!-- Botones cámara / foto -->
-    <div class="scan-btns">
-      <button class="btn-scan" id="btnCamara" onclick="toggleCamara()">
-        📷 Activar cámara
+    <!-- Inputs de archivo -->
+    <input type="file" id="fileGaleria"   accept="image/*,application/pdf" onchange="procesarArchivo(this, 'galeria')">
+    <input type="file" id="fileCamara"    accept="image/*" capture="environment" onchange="procesarArchivo(this, 'camara')">
+
+    <!-- Botones -->
+    <div class="attach-btns">
+      <button class="btn-attach primary" onclick="document.getElementById('fileCamara').click()">
+        📷 Tomar foto
       </button>
-      <button class="btn-foto" onclick="document.getElementById('fileInput').click()">
-        🖼 Subir foto
+      <button class="btn-attach secondary" onclick="document.getElementById('fileGaleria').click()">
+        🖼 Galería / PDF
       </button>
     </div>
 
-    <input type="file" id="fileInput" accept="image/*" capture="environment" onchange="procesarImagen(this)">
+    <!-- Preview imagen -->
+    <div class="img-preview-wrap" id="imgPreviewWrap">
+      <div class="img-preview-bar">
+        <span id="imgNombre">documento.jpg</span>
+        <button class="btn-remove-img" onclick="limpiarImagen()">✕</button>
+      </div>
+      <img id="imgPreview" src="" alt="Vista previa">
+    </div>
 
+    <!-- Status OCR -->
     <div class="ocr-status" id="ocrStatus"></div>
 
-    <div class="seccion-sep"></div>
+    <!-- Chips de resultado OCR -->
+    <div class="ocr-result-box" id="ocrResultBox">
+      <div class="ocr-result-label">Texto detectado — toca para agregar</div>
+      <div class="ocr-chips" id="ocrChips"></div>
+    </div>
 
-    <!-- Lista de radicados capturados -->
+    <div class="sep"></div>
+
+    <!-- Lista de radicados -->
+    <div class="card-title" style="margin-bottom:10px;">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+      Lista de radicados registrados
+    </div>
+
     <div id="listaRadicados" class="lista-radicados">
       <div class="empty-state">
         <div class="empty-icon">📂</div>
-        Aún no hay radicados registrados
+        Aún no hay radicados
       </div>
     </div>
 
-    <p class="hint" style="margin-top:10px;">
-      💡 Escanea uno por uno. Revisa la lista antes de enviar.
-    </p>
+    <p class="hint">💡 Adjunta el documento, el sistema lee el radicado automáticamente.<br>Revisa la lista antes de enviar.</p>
   </div>
 
-  <!-- ── BOTÓN ENVIAR ── -->
+  <!-- ENVIAR -->
   <button class="btn-enviar" id="btnEnviar" onclick="enviarDatos()">
     ✅ Enviar registros
-    <span class="btn-enviar-sub">Se guardará en Google Sheets automáticamente</span>
+    <span class="btn-enviar-sub">Guarda en Google Sheets y envía fotos por correo</span>
   </button>
 
 </div>
 
-<!-- ── MODAL DE ÉXITO ── -->
+<!-- MODAL ÉXITO -->
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal">
-    <div class="modal-icono">✅</div>
+    <div class="modal-check">✅</div>
     <h2>¡Registros enviados!</h2>
-    <p>Los radicados fueron guardados<br>en Google Sheets correctamente.</p>
-    <div class="modal-detalle">
-      <span>Mensajero</span>
-      <span id="modalMensajero">—</span>
-      <span style="margin-top:8px;">Total radicados enviados</span>
-      <span id="modalCantidad">—</span>
+    <p>Los radicados y documentos fueron<br>guardados y enviados correctamente.</p>
+    <div class="modal-nombre" id="modalMensajero">—</div>
+    <div class="modal-cards">
+      <div class="modal-card">
+        <div class="modal-card-val" id="modalCantidad">0</div>
+        <div class="modal-card-lbl">Radicados</div>
+      </div>
+      <div class="modal-card">
+        <div class="modal-card-val" id="modalFotos">0</div>
+        <div class="modal-card-lbl">Documentos adjuntos</div>
+      </div>
     </div>
-    <p style="font-size:12px; color:#9CA3AF;">
-      La doctora y coordinadores recibirán el resumen hoy en la noche.
+    <p style="font-size:12px; color:#9CA3AF; margin-bottom:20px;">
+      La doctora y coordinadores recibirán el resumen con los documentos adjuntos.
     </p>
-    <button class="btn-modal-ok" onclick="cerrarModal()">Continuar</button>
+    <button class="btn-modal-ok" onclick="cerrarModal()">Nuevo registro</button>
   </div>
 </div>
 
-<!-- Tesseract OCR (CDN permitido) -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
 <script>
-  // ─────────────────────────────────────────────────────
-  // ⚙️ CONFIGURACIÓN — solo cambia esta URL
-  // ─────────────────────────────────────────────────────
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbztL91xjDE9ThDB3PmLUmMWx_CB3R8MmfIpRUKg_FU3ekU3JeiQQlRV5PzAWOnAmI-h/exec';
-  // ─────────────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLxUuykEpRi6w9B3s--l5LWMo0c9QenXpd9iZreA-Kt736cSaeO5hl5h6n_hKzrZRF/exec';
 
-  let radicados = [];
-  let streamActivo = null;
-  let capturando = false;
-  let ocrWorker = null;
+let radicados   = [];   // [{codigo, hora, imgBase64, imgNombre, imgTipo}]
+let ocrWorker   = null;
+let imgActual   = null; // {base64, nombre, tipo, dataUrl}
 
-  // ── RELOJ ──────────────────────────────────────────
-  function padZ(n) { return String(n).padStart(2,'0'); }
+// ── RELOJ ────────────────────────────────────────────────────
+function padZ(n) { return String(n).padStart(2,'0'); }
+function horaTexto(d) { return padZ(d.getHours())+':'+padZ(d.getMinutes()); }
+function fechaTexto(d) {
+  const D=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const M=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return D[d.getDay()]+', '+d.getDate()+' de '+M[d.getMonth()]+' de '+d.getFullYear();
+}
+function actualizarReloj() {
+  const n=new Date();
+  document.getElementById('horaActual').textContent=horaTexto(n);
+  document.getElementById('fechaActual').textContent=fechaTexto(n);
+}
+function usarHoraActual() { document.getElementById('horaEntrega').value=horaTexto(new Date()); }
 
-  function horaTexto(d) {
-    return padZ(d.getHours()) + ':' + padZ(d.getMinutes());
-  }
+// ── DRAG & DROP ───────────────────────────────────────────────
+function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function dragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function dropFile(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) procesarArchivoObj(file);
+}
 
-  function fechaTexto(d) {
-    const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-    const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-    return dias[d.getDay()] + ', ' + d.getDate() + ' de ' + meses[d.getMonth()] + ' de ' + d.getFullYear();
-  }
+// ── PROCESAR ARCHIVO ──────────────────────────────────────────
+function procesarArchivo(input) {
+  if (!input.files || !input.files[0]) return;
+  procesarArchivoObj(input.files[0]);
+  input.value = '';
+}
 
-  function actualizarReloj() {
-    const ahora = new Date();
-    document.getElementById('horaActual').textContent = horaTexto(ahora);
-    document.getElementById('fechaActual').textContent = fechaTexto(ahora);
-  }
+function procesarArchivoObj(file) {
+  setOCRStatus('⏳ Leyendo documento...');
+  limpiarResultadoOCR();
 
-  function usarHoraActual() {
-    document.getElementById('horaEntrega').value = horaTexto(new Date());
-  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl = e.target.result;
+    const base64  = dataUrl.split(',')[1];
+    const tipo    = file.type;
+    const nombre  = file.name;
 
-  // ── CÁMARA ─────────────────────────────────────────
-  async function toggleCamara() {
-    const btn = document.getElementById('btnCamara');
-    const video = document.getElementById('cameraVideo');
-    const inactive = document.getElementById('scanInactive');
-    const overlay = document.getElementById('scanOverlay');
+    imgActual = { base64, nombre, tipo, dataUrl };
 
-    if (streamActivo) {
-      streamActivo.getTracks().forEach(t => t.stop());
-      streamActivo = null;
-      video.style.display = 'none';
-      inactive.style.display = 'flex';
-      overlay.style.display = 'none';
-      btn.textContent = '📷 Activar cámara';
-      return;
+    // Mostrar preview
+    const wrap = document.getElementById('imgPreviewWrap');
+    const img  = document.getElementById('imgPreview');
+    document.getElementById('imgNombre').textContent = nombre;
+
+    if (tipo === 'application/pdf') {
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+          <rect width="400" height="200" fill="#F0F4FC"/>
+          <text x="200" y="90" text-anchor="middle" font-size="48">📄</text>
+          <text x="200" y="130" text-anchor="middle" font-family="Arial" font-size="16" fill="#1A4BA8" font-weight="bold">PDF adjunto</text>
+          <text x="200" y="155" text-anchor="middle" font-family="Arial" font-size="12" fill="#6B7280">${nombre}</text>
+        </svg>`);
+      wrap.style.display = 'block';
+      setOCRStatus('📄 PDF adjunto. Escribe el número de radicado manualmente.');
+      mostrarEntradaManual();
+    } else {
+      img.src = dataUrl;
+      wrap.style.display = 'block';
+      ejecutarOCR(dataUrl);
     }
+  };
+  reader.readAsDataURL(file);
+}
 
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+// ── ENTRADA MANUAL (para PDFs) ────────────────────────────────
+function mostrarEntradaManual() {
+  if (document.getElementById('inputManual')) return;
+  const div = document.createElement('div');
+  div.id = 'wrapManual';
+  div.style.cssText = 'margin-bottom:10px;';
+  div.innerHTML = `
+    <label style="font-size:13px;font-weight:500;color:#6B7280;margin-bottom:6px;display:block;">Número de radicado</label>
+    <div style="display:flex;gap:8px;">
+      <input type="text" id="inputManual" placeholder="Ej: 20241234"
+        style="flex:1;padding:13px 16px;font-size:15px;border:1.5px solid #D1D5DB;border-radius:10px;outline:none;font-family:monospace;text-transform:uppercase;"
+        oninput="this.value=this.value.toUpperCase()"
+        onkeydown="if(event.key==='Enter')agregarManual()">
+      <button onclick="agregarManual()"
+        style="padding:13px 16px;background:#1A4BA8;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;">✓</button>
+    </div>`;
+  document.getElementById('ocrStatus').after(div);
+}
+
+function agregarManual() {
+  const input = document.getElementById('inputManual');
+  if (!input) return;
+  const val = input.value.trim().toUpperCase();
+  if (val) agregarRadicado(val);
+  input.value = '';
+}
+
+// ── OCR ───────────────────────────────────────────────────────
+async function ejecutarOCR(dataUrl) {
+  setOCRStatus('🔍 Analizando documento...');
+  try {
+    if (!ocrWorker) {
+      setOCRStatus('⏳ Preparando motor OCR...');
+      ocrWorker = await Tesseract.createWorker('spa+eng', 1, { logger: ()=>{} });
+      await ocrWorker.setParameters({
+        tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-/ .',
       });
-      streamActivo = stream;
-      video.srcObject = stream;
-      video.style.display = 'block';
-      inactive.style.display = 'none';
-      overlay.style.display = 'flex';
-      btn.textContent = '⏹ Detener cámara';
-
-      // Añadir botón de captura si no existe
-      if (!document.getElementById('btnCapturar')) {
-        const bc = document.createElement('button');
-        bc.id = 'btnCapturar';
-        bc.textContent = '🔍 Capturar y leer radicado';
-        bc.style.cssText = 'margin-top:4px; width:100%; padding:14px; background:#16A34A; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer;';
-        bc.onclick = capturarDesdeVideo;
-        document.querySelector('.scan-btns').after(bc);
-      }
-    } catch(err) {
-      mostrarAlerta('⚠️ No se pudo acceder a la cámara. Intenta con "Subir foto".', 'error');
-    }
-  }
-
-  async function capturarDesdeVideo() {
-    if (capturando) return;
-    const video = document.getElementById('cameraVideo');
-    const canvas = document.getElementById('cameraCanvas');
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-    await ejecutarOCR(dataUrl);
-  }
-
-  function procesarImagen(input) {
-    if (!input.files || !input.files[0]) return;
-    const reader = new FileReader();
-    reader.onload = e => ejecutarOCR(e.target.result);
-    reader.readAsDataURL(input.files[0]);
-    input.value = '';
-  }
-
-  async function ejecutarOCR(dataUrl) {
-    if (capturando) return;
-    capturando = true;
-    setOCRStatus('⏳ Leyendo imagen...');
-
-    try {
-      if (!ocrWorker) {
-        setOCRStatus('⏳ Cargando motor OCR...');
-        ocrWorker = await Tesseract.createWorker('eng+spa', 1, {
-          logger: () => {}
-        });
-        await ocrWorker.setParameters({
-          tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-/ ',
-        });
-      }
-
-      setOCRStatus('🔍 Reconociendo texto...');
-      const { data: { text } } = await ocrWorker.recognize(dataUrl);
-
-      const lineas = text.split('\n')
-        .map(l => l.trim().replace(/\s+/g, ' ').toUpperCase())
-        .filter(l => l.length >= 4 && l.length <= 50);
-
-      if (lineas.length === 0) {
-        setOCRStatus('❌ No se detectó texto. Intenta de nuevo con mejor luz.');
-        capturando = false;
-        return;
-      }
-
-      // Mostrar selección si hay múltiples líneas
-      if (lineas.length === 1) {
-        confirmarRadicado(lineas[0]);
-      } else {
-        mostrarSelectorOCR(lineas);
-      }
-
-    } catch(err) {
-      setOCRStatus('❌ Error al procesar imagen.');
     }
 
-    capturando = false;
-  }
+    setOCRStatus('🔍 Reconociendo texto...');
+    const { data: { text } } = await ocrWorker.recognize(dataUrl);
 
-  function confirmarRadicado(texto) {
-    const confirmado = confirm(`¿El radicado es:\n\n"${texto}"\n\n¿Confirmar y agregar?`);
-    if (confirmado) agregarRadicadoTexto(texto);
-    else setOCRStatus('');
-  }
+    // Extraer candidatos a radicado: secuencias de dígitos/alfanumérico de 4-20 chars
+    const lineas = text.split('\n')
+      .map(l => l.trim().replace(/\s+/g,' ').toUpperCase())
+      .filter(l => l.length >= 4 && l.length <= 60 && /\d/.test(l));
 
-  function mostrarSelectorOCR(lineas) {
+    // Eliminar duplicados y ruido
+    const uniq = [...new Set(lineas)].slice(0, 8);
+
+    if (uniq.length === 0) {
+      setOCRStatus('⚠️ No se detectó texto numérico. Escribe el radicado manualmente.');
+      mostrarEntradaManual();
+      return;
+    }
+
+    setOCRStatus('✅ Texto detectado — selecciona el radicado correcto:');
+    mostrarChips(uniq);
+
+  } catch(err) {
+    setOCRStatus('⚠️ No se pudo leer el documento. Escribe el radicado manualmente.');
+    mostrarEntradaManual();
+  }
+}
+
+function mostrarChips(lineas) {
+  const box   = document.getElementById('ocrResultBox');
+  const chips = document.getElementById('ocrChips');
+  chips.innerHTML = lineas.map(l => `
+    <div class="ocr-chip" onclick="seleccionarChip(this,'${l.replace(/'/g,"\\'")}')">
+      <span class="chip-add-icon">＋</span>${l}
+    </div>`).join('');
+  box.style.display = 'block';
+}
+
+function seleccionarChip(el, texto) {
+  el.classList.toggle('seleccionado');
+  if (el.classList.contains('seleccionado')) {
+    el.querySelector('.chip-add-icon').textContent = '✓';
+    agregarRadicado(texto);
+  } else {
+    el.querySelector('.chip-add-icon').textContent = '＋';
+  }
+}
+
+function limpiarResultadoOCR() {
+  document.getElementById('ocrResultBox').style.display = 'none';
+  document.getElementById('ocrChips').innerHTML = '';
+  const w = document.getElementById('wrapManual');
+  if (w) w.remove();
+}
+
+function limpiarImagen() {
+  imgActual = null;
+  document.getElementById('imgPreviewWrap').style.display = 'none';
+  document.getElementById('imgPreview').src = '';
+  setOCRStatus('');
+  limpiarResultadoOCR();
+}
+
+function setOCRStatus(msg) { document.getElementById('ocrStatus').textContent = msg; }
+
+// ── AGREGAR RADICADO ──────────────────────────────────────────
+function agregarRadicado(codigo) {
+  codigo = codigo.trim().toUpperCase();
+  if (!codigo) return;
+  if (radicados.find(r => r.codigo === codigo)) {
+    setOCRStatus('⚠️ Ese radicado ya estaba en la lista.');
+    return;
+  }
+  const hora = document.getElementById('horaEntrega').value || horaTexto(new Date());
+  radicados.push({
+    codigo,
+    hora,
+    imgBase64: imgActual ? imgActual.base64  : null,
+    imgNombre: imgActual ? imgActual.nombre  : null,
+    imgTipo:   imgActual ? imgActual.tipo    : null,
+    imgDataUrl:imgActual ? imgActual.dataUrl : null
+  });
+  renderLista();
+  setOCRStatus(`✅ Radicado agregado: ${codigo}`);
+
+  // Limpiar imagen para el siguiente
+  setTimeout(() => {
+    limpiarImagen();
     setOCRStatus('');
-    let opciones = lineas.slice(0, 5).map((l, i) =>
-      `<button onclick="seleccionarOCR('${l.replace(/'/g,"\\'")}', this.parentElement)"
-        style="display:block; width:100%; text-align:left; padding:10px 12px; margin-bottom:8px; background:#F0F4FC; border:1.5px solid #1A4BA8; border-radius:9px; font-size:13px; font-family:monospace; font-weight:700; color:#0D2E6E; cursor:pointer;">
-        ${l}
-      </button>`
-    ).join('');
+  }, 1800);
+}
 
-    const div = document.createElement('div');
-    div.style.cssText = 'position:fixed; inset:0; background:rgba(13,46,110,0.6); z-index:200; display:flex; align-items:flex-end; justify-content:center; padding:20px;';
-    div.innerHTML = `
-      <div style="background:#fff; border-radius:18px; padding:22px 18px; width:100%; max-width:380px; max-height:70vh; overflow-y:auto;">
-        <div style="font-weight:800; font-size:15px; color:#0D2E6E; margin-bottom:14px;">📋 Selecciona el radicado</div>
-        ${opciones}
-        <button onclick="this.parentElement.parentElement.remove(); setOCRStatus('');"
-          style="width:100%; padding:12px; background:none; border:1px solid #D1D5DB; border-radius:9px; color:#6B7280; font-size:13px; cursor:pointer; margin-top:4px;">
-          Cancelar
-        </button>
-      </div>
-    `;
-    document.body.appendChild(div);
+// ── LISTA ─────────────────────────────────────────────────────
+function eliminarRadicado(i) { radicados.splice(i,1); renderLista(); }
+
+function renderLista() {
+  const c = document.getElementById('listaRadicados');
+  document.getElementById('contadorBadge').textContent = radicados.length;
+  if (radicados.length === 0) {
+    c.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div>Aún no hay radicados</div>';
+    return;
   }
-
-  function seleccionarOCR(texto, contenedor) {
-    contenedor.parentElement.remove();
-    agregarRadicadoTexto(texto);
-  }
-
-  function setOCRStatus(msg) {
-    document.getElementById('ocrStatus').textContent = msg;
-  }
-
-  // ── LISTA RADICADOS ─────────────────────────────────
-  function agregarRadicadoTexto(codigo) {
-    codigo = codigo.trim().toUpperCase();
-    if (!codigo) { setOCRStatus(''); return; }
-
-    if (radicados.find(r => r.codigo === codigo)) {
-      setOCRStatus('⚠️ Este radicado ya estaba en la lista.');
-      return;
-    }
-
-    const hora = document.getElementById('horaEntrega').value || horaTexto(new Date());
-    radicados.push({ codigo, hora });
-    renderLista();
-    setOCRStatus(`✅ Radicado agregado: ${codigo}`);
-    setTimeout(() => setOCRStatus(''), 3000);
-  }
-
-  function eliminarRadicado(i) {
-    radicados.splice(i, 1);
-    renderLista();
-  }
-
-  function renderLista() {
-    const contenedor = document.getElementById('listaRadicados');
-    document.getElementById('contadorBadge').textContent = radicados.length;
-
-    if (radicados.length === 0) {
-      contenedor.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div>Aún no hay radicados registrados</div>';
-      return;
-    }
-
-    contenedor.innerHTML = radicados.map((r, i) => `
-      <div class="radicado-item">
+  c.innerHTML = radicados.map((r,i) => `
+    <div class="radicado-item">
+      <div class="radicado-header">
         <span class="radicado-num">${i+1}</span>
         <span class="radicado-text">${r.codigo}</span>
         <span class="radicado-hora">⏱ ${r.hora}</span>
-        <button class="btn-eliminar" onclick="eliminarRadicado(${i})" aria-label="Eliminar">✕</button>
+        ${r.imgDataUrl ? `<img class="radicado-thumb" src="${r.imgDataUrl}" alt="doc" onclick="verImagen('${i}')">` : ''}
+        <button class="btn-eliminar" onclick="eliminarRadicado(${i})">✕</button>
       </div>
-    `).join('');
+    </div>`).join('');
+}
+
+function verImagen(i) {
+  const r = radicados[i];
+  if (!r.imgDataUrl) return;
+  const w = window.open();
+  w.document.write(`<html><body style="margin:0;background:#111;display:flex;justify-content:center;"><img src="${r.imgDataUrl}" style="max-width:100%;height:auto;"></body></html>`);
+}
+
+// ── ALERTAS ───────────────────────────────────────────────────
+function mostrarAlerta(msg) {
+  const el = document.getElementById('alerta');
+  el.textContent = msg;
+  el.classList.add('visible');
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  setTimeout(()=>el.classList.remove('visible'), 5000);
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+function abrirModal(nombre, cantidad, fotos) {
+  document.getElementById('modalMensajero').textContent = '👤 ' + nombre;
+  document.getElementById('modalCantidad').textContent  = cantidad;
+  document.getElementById('modalFotos').textContent     = fotos;
+  document.getElementById('modalBackdrop').classList.add('visible');
+}
+
+function cerrarModal() { document.getElementById('modalBackdrop').classList.remove('visible'); }
+
+// ── ENVÍO ─────────────────────────────────────────────────────
+async function enviarDatos() {
+  const mensajero = document.getElementById('mensajero').value.trim().toUpperCase();
+  const hora      = document.getElementById('horaEntrega').value;
+
+  if (!mensajero)          { mostrarAlerta('⚠️ Escribe tu nombre.'); return; }
+  if (!hora)               { mostrarAlerta('⚠️ Registra la hora de entrega.'); return; }
+  if (radicados.length===0){ mostrarAlerta('⚠️ Agrega al menos un radicado.'); return; }
+
+  const btn = document.getElementById('btnEnviar');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Enviando...';
+
+  const ahora = new Date();
+  const payload = {
+    mensajero,
+    horaEntrega: hora,
+    fecha: ahora.toLocaleDateString('es-CO'),
+    timestamp: ahora.toISOString(),
+    radicados: radicados.map(r => ({
+      codigo:    r.codigo,
+      hora:      r.hora,
+      imgBase64: r.imgBase64,
+      imgNombre: r.imgNombre,
+      imgTipo:   r.imgTipo
+    }))
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const cant  = radicados.length;
+    const fotos = radicados.filter(r => r.imgBase64).length;
+
+    radicados = [];
+    renderLista();
+    document.getElementById('mensajero').value = '';
+    limpiarImagen();
+    usarHoraActual();
+    abrirModal(mensajero, cant, fotos);
+
+  } catch(e) {
+    mostrarAlerta('❌ Error al enviar. Revisa tu conexión.');
   }
 
-  // ── ALERTAS ─────────────────────────────────────────
-  function mostrarAlerta(msg, tipo) {
-    const el = document.getElementById('alerta');
-    el.textContent = msg;
-    el.className = `alerta ${tipo} visible`;
-    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    setTimeout(() => el.classList.remove('visible'), 5000);
-  }
+  btn.disabled = false;
+  btn.innerHTML = '✅ Enviar registros<span class="btn-enviar-sub">Guarda en Google Sheets y envía fotos por correo</span>';
+}
 
-  // ── MODAL ───────────────────────────────────────────
-  function abrirModal(mensajero, cantidad) {
-    document.getElementById('modalMensajero').textContent = mensajero;
-    document.getElementById('modalCantidad').textContent = cantidad + ' radicado(s)';
-    document.getElementById('modalBackdrop').classList.add('visible');
-  }
-
-  function cerrarModal() {
-    document.getElementById('modalBackdrop').classList.remove('visible');
-  }
-
-  // ── ENVÍO ────────────────────────────────────────────
-  async function enviarDatos() {
-    const mensajero = document.getElementById('mensajero').value.trim().toUpperCase();
-    const hora = document.getElementById('horaEntrega').value;
-
-    if (!mensajero) { mostrarAlerta('⚠️ Escribe tu nombre antes de enviar.', 'error'); return; }
-    if (!hora)      { mostrarAlerta('⚠️ Registra la hora de entrega.', 'error'); return; }
-    if (radicados.length === 0) { mostrarAlerta('⚠️ Agrega al menos un radicado.', 'error'); return; }
-
-    const btn = document.getElementById('btnEnviar');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Enviando...';
-
-    const ahora = new Date();
-    const payload = {
-      mensajero,
-      horaEntrega: hora,
-      fecha: ahora.toLocaleDateString('es-CO'),
-      timestamp: ahora.toISOString(),
-      radicados
-    };
-
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const cant = radicados.length;
-      radicados = [];
-      renderLista();
-      document.getElementById('mensajero').value = '';
-      document.getElementById('horaEntrega').value = '';
-      setOCRStatus('');
-      usarHoraActual();
-
-      abrirModal(mensajero, cant);
-
-    } catch(e) {
-      mostrarAlerta('❌ Error al enviar. Revisa tu conexión e intenta de nuevo.', 'error');
-    }
-
-    btn.disabled = false;
-    btn.innerHTML = '✅ Enviar registros<span class="btn-enviar-sub">Se guardará en Google Sheets automáticamente</span>';
-  }
-
-  // ── INIT ─────────────────────────────────────────────
-  actualizarReloj();
-  setInterval(actualizarReloj, 30000);
-  usarHoraActual();
+// ── INIT ──────────────────────────────────────────────────────
+actualizarReloj();
+setInterval(actualizarReloj, 30000);
+usarHoraActual();
 </script>
 </body>
 </html>
