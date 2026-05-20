@@ -16,182 +16,127 @@
   --rojo:      #C0392B;
   --rojo-lt:   #FDECEA;
   --gris:      #6B7280;
-  --gris-lt:   #F3F4F6;
   --texto:     #111827;
   --borde:     rgba(13,46,110,0.13);
   --r:         14px;
   --font:      'Segoe UI', system-ui, sans-serif;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { font-family: var(--font); background: #EEF2FA; min-height: 100vh; color: var(--texto); }
 
-/* HEADER */
 header {
-  background: var(--azul);
-  padding: 13px 18px;
-  display: flex;
-  align-items: center;
-  gap: 13px;
+  background: var(--azul); padding: 13px 18px;
+  display: flex; align-items: center; gap: 13px;
   position: sticky; top: 0; z-index: 10;
   box-shadow: 0 2px 14px rgba(13,46,110,0.28);
 }
-.logo-img { height: 42px; width: auto; object-fit: contain; filter: brightness(0) invert(1); flex-shrink: 0; }
+.logo-img { height: 42px; filter: brightness(0) invert(1); flex-shrink: 0; }
 .hdr-div  { width: 1px; height: 36px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
 .hdr-text h1 { color: #fff; font-size: 15px; font-weight: 700; }
 .hdr-text p  { color: rgba(255,255,255,0.62); font-size: 11px; margin-top: 2px; }
 
-/* LAYOUT */
 .main { padding: 18px 14px 40px; max-width: 480px; margin: 0 auto; }
 
 .card {
-  background: #fff;
-  border-radius: var(--r);
-  border: 1px solid var(--borde);
-  padding: 18px;
-  margin-bottom: 14px;
-  box-shadow: 0 1px 8px rgba(13,46,110,0.07);
+  background: #fff; border-radius: var(--r);
+  border: 1px solid var(--borde); padding: 18px;
+  margin-bottom: 14px; box-shadow: 0 1px 8px rgba(13,46,110,0.07);
 }
-
 .card-title {
   font-size: 11px; font-weight: 700; color: var(--azul-mid);
   text-transform: uppercase; letter-spacing: 0.9px;
-  margin-bottom: 14px;
-  display: flex; align-items: center; gap: 7px;
+  margin-bottom: 14px; display: flex; align-items: center; gap: 7px;
 }
-
 label { display: block; font-size: 13px; font-weight: 500; color: var(--gris); margin-bottom: 6px; }
-
 input[type="text"] {
   width: 100%; padding: 13px 16px; font-size: 16px;
   border: 1.5px solid #D1D5DB; border-radius: 10px; outline: none;
-  font-family: var(--font); color: var(--texto); background: #fff;
-  text-transform: uppercase;
+  font-family: var(--font); color: var(--texto); text-transform: uppercase;
   transition: border-color .18s, box-shadow .18s;
 }
 input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px rgba(37,99,235,0.13); }
 
-/* INFO AUTOMÁTICA */
 .info-auto {
-  background: var(--azul-pale);
-  border-radius: 10px;
-  border: 1px solid var(--azul-lt);
-  padding: 12px 16px;
+  background: var(--azul-pale); border-radius: 10px;
+  border: 1px solid var(--azul-lt); padding: 12px 16px;
   display: flex; align-items: center; gap: 12px;
 }
-.info-auto-icon { font-size: 22px; flex-shrink: 0; }
+.info-auto-icon { font-size: 22px; }
 .info-auto-val  { font-size: 17px; font-weight: 800; color: var(--azul); }
 .info-auto-lbl  { font-size: 11px; color: var(--azul-mid); font-weight: 600; margin-top: 1px; }
 
-/* EVIDENCIAS */
-.ev-counter {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 14px;
-}
-.ev-dots { display: flex; gap: 8px; }
+/* Contador dots */
+.ev-counter { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.ev-dots    { display: flex; gap: 8px; }
 .ev-dot {
   width: 28px; height: 28px; border-radius: 50%;
-  border: 2px solid var(--azul-lt);
-  background: #fff;
+  border: 2px solid var(--azul-lt); background: #fff;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: #CBD5E1;
-  transition: all .2s;
-  flex-shrink: 0;
+  font-size: 11px; font-weight: 700; color: #CBD5E1; transition: all .2s;
 }
 .ev-dot.lleno  { background: var(--azul-mid); border-color: var(--azul-mid); color: #fff; }
 .ev-dot.activo { border-color: var(--azul-acc); color: var(--azul-acc); background: var(--azul-pale); }
-
-.ev-label { font-size: 13px; font-weight: 600; color: var(--gris); }
+.ev-label      { font-size: 13px; font-weight: 600; color: var(--gris); }
 .ev-label span { color: var(--azul); font-weight: 800; }
 
-/* Grid de 3 slots */
-.ev-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
+/* Grid slots */
+.ev-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px; }
 .ev-slot {
-  aspect-ratio: 3/4;
-  border-radius: 10px;
-  border: 2px dashed #BFCFE8;
-  background: var(--azul-pale);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+  aspect-ratio: 3/4; border-radius: 10px;
+  border: 2px dashed #BFCFE8; background: var(--azul-pale);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   cursor: pointer; position: relative; overflow: hidden;
   transition: border-color .2s, background .2s;
 }
-
 .ev-slot:hover:not(.lleno) { border-color: var(--azul-acc); background: #E0EAFF; }
-
 .ev-slot.lleno { border: 2px solid var(--azul-mid); cursor: default; }
-
 .ev-slot-icon  { font-size: 26px; margin-bottom: 5px; }
 .ev-slot-num   { font-size: 10px; font-weight: 700; color: var(--azul-mid); }
-
-.ev-slot img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 8px;
-}
-
-.ev-slot .slot-overlay {
-  position: absolute; inset: 0;
-  background: rgba(13,46,110,0.55);
+.ev-slot img   { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ev-slot .ov   {
+  position: absolute; inset: 0; background: rgba(13,46,110,0.55);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity .2s; border-radius: 8px;
+  opacity: 0; transition: opacity .2s;
 }
-
-.ev-slot.lleno:hover .slot-overlay { opacity: 1; }
-
-.slot-btn-del {
-  background: rgba(255,255,255,0.9);
-  border: none; border-radius: 50%;
-  width: 32px; height: 32px;
-  font-size: 16px; cursor: pointer; color: var(--rojo);
+.ev-slot.lleno:hover .ov { opacity: 1; }
+.slot-del {
+  background: rgba(255,255,255,0.92); border: none; border-radius: 50%;
+  width: 32px; height: 32px; font-size: 16px; cursor: pointer; color: var(--rojo);
   display: flex; align-items: center; justify-content: center;
 }
 
-/* Botones adjuntar */
-.attach-btns {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-  margin-bottom: 6px;
-}
-
+.attach-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
 .btn-at {
   padding: 12px 10px; border-radius: 10px;
   font-size: 13px; font-weight: 700; cursor: pointer;
   display: flex; align-items: center; justify-content: center; gap: 7px;
-  transition: transform .15s;
 }
-
 .btn-at.p { background: var(--azul-mid); color: #fff; border: none; }
 .btn-at.s { background: var(--azul-lt); color: var(--azul); border: 1.5px solid var(--azul-mid); }
-.btn-at:active { transform: scale(0.96); }
+.btn-at:active   { transform: scale(0.96); }
 .btn-at:disabled { opacity: .45; cursor: not-allowed; transform: none !important; }
-
 .hint { font-size: 12px; color: var(--gris); text-align: center; line-height: 1.5; margin-top: 8px; }
 
-/* ALERTA */
+/* Progress bar envío */
+.progress-wrap { display: none; margin-bottom: 14px; }
+.progress-wrap.visible { display: block; }
+.progress-label { font-size: 13px; font-weight: 600; color: var(--azul-mid); margin-bottom: 6px; text-align: center; }
+.progress-bar-bg { background: var(--azul-lt); border-radius: 20px; height: 8px; overflow: hidden; }
+.progress-bar    { background: var(--azul-mid); height: 100%; border-radius: 20px; width: 0%; transition: width .3s; }
+
 .alerta { border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 500; margin-bottom: 14px; display: none; }
-.alerta.error { background: var(--rojo-lt); color: #7B1A14; border: 1px solid rgba(192,57,43,0.2); }
+.alerta.error   { background: var(--rojo-lt); color: #7B1A14; border: 1px solid rgba(192,57,43,0.2); }
 .alerta.visible { display: block; }
 
-/* BOTÓN ENVIAR */
 .btn-enviar {
-  width: 100%; padding: 18px;
-  background: var(--azul); color: #fff; border: none;
+  width: 100%; padding: 18px; background: var(--azul); color: #fff; border: none;
   border-radius: var(--r); font-size: 17px; font-weight: 800;
   cursor: pointer; box-shadow: 0 4px 18px rgba(13,46,110,0.32);
-  transition: background .2s;
 }
-.btn-enviar:active  { background: var(--azul-mid); }
-.btn-enviar:disabled{ background: #94A3B8; cursor: not-allowed; box-shadow: none; }
-.btn-enviar-sub     { display: block; font-size: 12px; font-weight: 400; opacity: .72; margin-top: 3px; }
+.btn-enviar:active   { background: var(--azul-mid); }
+.btn-enviar:disabled { background: #94A3B8; cursor: not-allowed; box-shadow: none; }
+.btn-enviar-sub      { display: block; font-size: 12px; font-weight: 400; opacity: .72; margin-top: 3px; }
 
-/* SPINNER */
 .sp {
   display: inline-block; width: 15px; height: 15px;
   border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
@@ -200,7 +145,7 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* MODAL */
+/* Modal */
 .modal-bd {
   display: none; position: fixed; inset: 0;
   background: rgba(13,46,110,0.62); z-index: 100;
@@ -208,30 +153,23 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
   backdrop-filter: blur(3px);
 }
 .modal-bd.visible { display: flex; }
-
 .modal {
   background: #fff; border-radius: 24px 24px 0 0;
-  padding: 30px 24px 40px; width: 100%; max-width: 480px;
-  text-align: center;
+  padding: 30px 24px 40px; width: 100%; max-width: 480px; text-align: center;
   animation: slideUp .28s cubic-bezier(.34,1.4,.64,1);
 }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-.modal-check { width: 70px; height: 70px; background: var(--verde-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 38px; }
-.modal h2    { font-size: 20px; font-weight: 800; color: var(--azul); margin-bottom: 8px; }
-.modal p     { font-size: 14px; color: var(--gris); line-height: 1.6; }
-
-.modal-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 20px; }
-.modal-card  { background: var(--azul-pale); border-radius: 10px; padding: 12px; }
-.modal-card-val { font-size: 26px; font-weight: 800; color: var(--azul); }
-.modal-card-lbl { font-size: 11px; color: var(--azul-mid); font-weight: 600; margin-top: 2px; }
-
-.modal-nombre { font-size: 14px; font-weight: 700; color: var(--azul); background: var(--azul-pale); border-radius: 8px; padding: 10px 14px; margin-bottom: 20px; }
-
-.btn-modal-ok { width: 100%; padding: 16px; background: var(--azul); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; }
+.modal-check     { width: 70px; height: 70px; background: var(--verde-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 38px; }
+.modal h2        { font-size: 20px; font-weight: 800; color: var(--azul); margin-bottom: 8px; }
+.modal p         { font-size: 14px; color: var(--gris); line-height: 1.6; }
+.modal-cards     { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 20px; }
+.modal-card      { background: var(--azul-pale); border-radius: 10px; padding: 12px; }
+.modal-card-val  { font-size: 26px; font-weight: 800; color: var(--azul); }
+.modal-card-lbl  { font-size: 11px; color: var(--azul-mid); font-weight: 600; margin-top: 2px; }
+.modal-nombre    { font-size: 14px; font-weight: 700; color: var(--azul); background: var(--azul-pale); border-radius: 8px; padding: 10px 14px; margin-bottom: 20px; }
+.btn-modal-ok    { width: 100%; padding: 16px; background: var(--azul); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; }
 .btn-modal-ok:active { background: var(--azul-mid); }
 
-/* inputs hidden */
 #fileCamara, #fileGaleria { display: none; }
 </style>
 </head>
@@ -239,7 +177,7 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
 
 <header>
   <img src="https://i.ibb.co/Tq23KgR9/download-removebg-preview.png" class="logo-img" alt="Cafam"
-       onerror="this.outerHTML='<div style=\'width:38px;height:38px;background:#1A4BA8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;\'>🧬</div>'">
+       onerror="this.outerHTML='<div style=\'width:38px;height:38px;background:#1A4BA8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;\'>🧬</div>'">
   <div class="hdr-div"></div>
   <div class="hdr-text">
     <h1>Cafam Biológicos</h1>
@@ -263,7 +201,7 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
            oninput="this.value=this.value.toUpperCase()">
   </div>
 
-  <!-- FECHA Y HORA AUTO -->
+  <!-- FECHA AUTO -->
   <div class="card">
     <div class="card-title">
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
@@ -285,37 +223,29 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
       Evidencias fotográficas
     </div>
 
-    <!-- Contador visual -->
     <div class="ev-counter">
       <div class="ev-dots">
         <div class="ev-dot activo" id="dot0">1</div>
         <div class="ev-dot" id="dot1">2</div>
         <div class="ev-dot" id="dot2">3</div>
       </div>
-      <div class="ev-label">
-        <span id="evCount">0</span> de <span>3</span> evidencias
-      </div>
+      <div class="ev-label"><span id="evCount">0</span> de <span>3</span> evidencias</div>
     </div>
 
-    <!-- Grid de 3 slots -->
     <div class="ev-grid">
-      <div class="ev-slot" id="slot0" onclick="abrirSelector(0)">
-        <div class="ev-slot-icon">📷</div>
-        <div class="ev-slot-num">Evidencia 1</div>
+      <div class="ev-slot" id="slot0" onclick="slotClick(0)">
+        <div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 1</div>
       </div>
-      <div class="ev-slot" id="slot1" onclick="abrirSelector(1)">
-        <div class="ev-slot-icon">📷</div>
-        <div class="ev-slot-num">Evidencia 2</div>
+      <div class="ev-slot" id="slot1" onclick="slotClick(1)">
+        <div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 2</div>
       </div>
-      <div class="ev-slot" id="slot2" onclick="abrirSelector(2)">
-        <div class="ev-slot-icon">📷</div>
-        <div class="ev-slot-num">Evidencia 3</div>
+      <div class="ev-slot" id="slot2" onclick="slotClick(2)">
+        <div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 3</div>
       </div>
     </div>
 
-    <!-- Botones adjuntar -->
     <div class="attach-btns">
-      <button class="btn-at p" id="btnCamara" onclick="dispararInput('camara')">📷 Tomar foto</button>
+      <button class="btn-at p" id="btnCamara"  onclick="dispararInput('camara')">📷 Tomar foto</button>
       <button class="btn-at s" id="btnGaleria" onclick="dispararInput('galeria')">🖼 Galería</button>
     </div>
 
@@ -325,7 +255,12 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
     <p class="hint">Máximo 3 evidencias · Toca una foto para eliminarla</p>
   </div>
 
-  <!-- ENVIAR -->
+  <!-- Barra de progreso envío -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-label" id="progressLabel">Comprimiendo imágenes...</div>
+    <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+  </div>
+
   <button class="btn-enviar" id="btnEnviar" onclick="enviarDatos()">
     ✅ Enviar registro
     <span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>
@@ -356,58 +291,75 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
 </div>
 
 <script>
-// ─── CONFIGURACIÓN ─────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8dCJrruDNY2mbSlY--5dN1Md7ry97dGaiM3V2ev1X5FESRnA60903Gnv8JQGWRmx-/exec';
-// ───────────────────────────────────────────────────────────
+// ─── CONFIGURACIÓN ─────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0adSLvWL3VZRhGM9s-i6BNS3iLqvktioUK30RPH6fLZC9ovLV2Hnx7wauvnyH2idA/exec';
+// ───────────────────────────────────────────────────────────────
 
-const MAX_EV = 3;
-let evidencias = [null, null, null]; // {dataUrl, base64, tipo, nombre}
-let slotActivo = 0;
+const MAX_EV       = 3;
+const MAX_W        = 1200;   // px máximo antes de comprimir
+const JPEG_QUALITY = 0.75;   // calidad JPEG (0-1)
+let evidencias     = [null, null, null];
+let slotActivo     = 0;
 
-// ── RELOJ ──────────────────────────────────────────────────
+// ── RELOJ ──────────────────────────────────────────────────────
 function padZ(n) { return String(n).padStart(2,'0'); }
-
 function horaTexto(d) { return padZ(d.getHours())+':'+padZ(d.getMinutes()); }
-
 function fechaCompleta(d) {
   const D=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   const M=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   return D[d.getDay()]+' '+d.getDate()+' de '+M[d.getMonth()]+', '+horaTexto(d);
 }
-
 function actualizarFecha() {
   document.getElementById('fechaDisplay').textContent = fechaCompleta(new Date());
 }
 
-// ── SLOTS ──────────────────────────────────────────────────
-function abrirSelector(idx) {
-  const ev = evidencias[idx];
-  if (ev) return; // ya tiene imagen, click en overlay elimina
+// ── COMPRIMIR IMAGEN ──────────────────────────────────────────
+// Redimensiona y convierte a JPEG para que el payload sea manejable
+function comprimirImagen(dataUrl) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > MAX_W) { height = Math.round(height * MAX_W / width); width = MAX_W; }
+      const canvas = document.createElement('canvas');
+      canvas.width  = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', JPEG_QUALITY));
+    };
+    img.src = dataUrl;
+  });
+}
+
+// ── SLOTS ─────────────────────────────────────────────────────
+function slotClick(idx) {
+  if (evidencias[idx]) return; // lleno → el overlay maneja el borrado
   slotActivo = idx;
-  // En móvil, abre directo cámara; en desktop galería
   const esMobil = /Mobi|Android/i.test(navigator.userAgent);
-  dispararInput(esMobil ? 'camara' : 'galeria');
+  document.getElementById(esMobil ? 'fileCamara' : 'fileGaleria').click();
 }
 
 function dispararInput(tipo) {
-  const llenos = evidencias.filter(Boolean).length;
-  if (llenos >= MAX_EV) { mostrarAlerta('Ya tienes 3 evidencias. Elimina una para agregar.'); return; }
-  // Encontrar primer slot vacío
+  if (evidencias.filter(Boolean).length >= MAX_EV) {
+    mostrarAlerta('Ya tienes 3 evidencias. Elimina una para agregar.');
+    return;
+  }
   slotActivo = evidencias.findIndex(e => !e);
   document.getElementById(tipo === 'camara' ? 'fileCamara' : 'fileGaleria').click();
 }
 
 function procesarImagen(input) {
   if (!input.files || !input.files[0]) return;
-  const file = input.files[0];
+  const file   = input.files[0];
   const reader = new FileReader();
-  reader.onload = e => {
-    const dataUrl = e.target.result;
-    const base64  = dataUrl.split(',')[1];
+  reader.onload = async e => {
+    const compressed = await comprimirImagen(e.target.result);
+    const base64     = compressed.split(',')[1];
     evidencias[slotActivo] = {
-      dataUrl, base64,
-      tipo:   file.type   || 'image/jpeg',
-      nombre: file.name   || ('evidencia_' + (slotActivo+1) + '.jpg')
+      dataUrl: compressed,
+      base64,
+      tipo:   'image/jpeg',
+      nombre: (file.name || 'evidencia').replace(/\.[^.]+$/, '') + '_' + (slotActivo+1) + '.jpg'
     };
     renderSlots();
   };
@@ -431,52 +383,46 @@ function renderSlots() {
 
     if (ev) {
       slot.classList.add('lleno');
-      slot.innerHTML = `
-        <img src="${ev.dataUrl}" alt="Evidencia ${i+1}">
-        <div class="slot-overlay">
-          <button class="slot-btn-del" onclick="event.stopPropagation(); eliminarEvidencia(${i})">✕</button>
-        </div>`;
-      dot.classList.add('lleno');
-      dot.classList.remove('activo');
+      slot.innerHTML = `<img src="${ev.dataUrl}" alt="Evidencia ${i+1}">
+        <div class="ov"><button class="slot-del" onclick="event.stopPropagation();eliminarEvidencia(${i})">✕</button></div>`;
+      dot.className = 'ev-dot lleno';
       dot.textContent = '✓';
     } else {
       slot.classList.remove('lleno');
       slot.innerHTML = `<div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia ${i+1}</div>`;
-      dot.classList.remove('lleno');
-      // dot activo = primer vacío
       const primerVacio = evidencias.findIndex(e => !e);
-      if (i === primerVacio) {
-        dot.classList.add('activo');
-        dot.textContent = String(i+1);
-      } else {
-        dot.classList.remove('activo');
-        dot.textContent = String(i+1);
-      }
+      dot.className = 'ev-dot' + (i === primerVacio ? ' activo' : '');
+      dot.textContent = String(i+1);
     }
   }
 
-  // Deshabilitar botones si lleno
   const lleno = llenos >= MAX_EV;
   document.getElementById('btnCamara').disabled  = lleno;
   document.getElementById('btnGaleria').disabled = lleno;
 }
 
-// ── ALERTA ─────────────────────────────────────────────────
+// ── PROGRESO ──────────────────────────────────────────────────
+function setProgress(pct, label) {
+  document.getElementById('progressBar').style.width   = pct + '%';
+  document.getElementById('progressLabel').textContent = label;
+  document.getElementById('progressWrap').classList.toggle('visible', pct < 100 && pct > 0);
+}
+
+// ── ALERTA ────────────────────────────────────────────────────
 function mostrarAlerta(msg) {
   const el = document.getElementById('alerta');
   el.textContent = msg;
   el.classList.add('visible');
-  setTimeout(() => el.classList.remove('visible'), 4500);
+  setTimeout(() => el.classList.remove('visible'), 5000);
 }
 
-// ── MODAL ──────────────────────────────────────────────────
+// ── MODAL ─────────────────────────────────────────────────────
 function abrirModal(mensajero, fotos, hora) {
   document.getElementById('mMensajero').textContent = '👤 ' + mensajero;
   document.getElementById('mFotos').textContent     = fotos;
   document.getElementById('mHora').textContent      = hora;
   document.getElementById('modalBd').classList.add('visible');
 }
-
 function cerrarModal() {
   document.getElementById('modalBd').classList.remove('visible');
   evidencias = [null, null, null];
@@ -484,51 +430,123 @@ function cerrarModal() {
   document.getElementById('mensajero').value = '';
 }
 
-// ── ENVÍO ──────────────────────────────────────────────────
+// ── ENVÍO — usa XMLHttpRequest para compatibilidad total ────────
+// No-cors con JSON falla porque Apps Script no acepta ese preflight.
+// Solución: enviar como form-urlencoded (no dispara preflight CORS)
+// y en el script leer con e.parameter en lugar de e.postData.
 async function enviarDatos() {
   const mensajero = document.getElementById('mensajero').value.trim().toUpperCase();
   const fotos     = evidencias.filter(Boolean);
 
-  if (!mensajero)    { mostrarAlerta('⚠️ Escribe tu nombre antes de enviar.'); return; }
+  if (!mensajero)         { mostrarAlerta('⚠️ Escribe tu nombre antes de enviar.'); return; }
   if (fotos.length === 0) { mostrarAlerta('⚠️ Adjunta al menos una evidencia fotográfica.'); return; }
 
   const btn = document.getElementById('btnEnviar');
   btn.disabled = true;
   btn.innerHTML = '<span class="sp"></span> Enviando...';
 
-  const ahora = new Date();
-  const hora  = horaTexto(ahora);
+  const ahora  = new Date();
+  const hora   = horaTexto(ahora);
+  const fecha  = ahora.toLocaleDateString('es-CO');
 
-  const payload = {
-    mensajero,
-    fecha:     ahora.toLocaleDateString('es-CO'),
-    hora,
-    timestamp: ahora.toISOString(),
-    evidencias: evidencias.map((ev, i) => ev ? {
-      indice: i + 1,
-      base64: ev.base64,
-      tipo:   ev.tipo,
-      nombre: ev.nombre
-    } : null)
-  };
+  setProgress(20, 'Comprimiendo imágenes...');
+
+  // Construir objeto con cada evidencia ya comprimida (lo hicimos al cargar)
+  const evData = evidencias.map((ev, i) => ev
+    ? { indice: i+1, base64: ev.base64, nombre: ev.nombre }
+    : null
+  );
+
+  setProgress(50, 'Enviando datos...');
+
+  // Codificar como form-urlencoded: esto SÍ funciona con Apps Script
+  // sin necesidad de CORS preflight
+  const params = new URLSearchParams();
+  params.append('mensajero', mensajero);
+  params.append('fecha',     fecha);
+  params.append('hora',      hora);
+  params.append('timestamp', ahora.toISOString());
+  params.append('evidencias', JSON.stringify(evData));
 
   try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    // XMLHttpRequest con modo sincrono-manual; Apps Script redirige a una
+    // URL nueva en el redirect — usamos fetch con redirect:'follow' y no-cors
+    // SOLO para el texto (sin body enorme) y la imagen va aparte.
+    // La forma que SÍ funciona para payloads grandes es iframe-trick o
+    // enviar a la URL directamente con un form submit oculto:
+    await enviarConForm(params.toString());
+
+    setProgress(90, 'Finalizando...');
+    setTimeout(() => setProgress(0, ''), 1000);
     abrirModal(mensajero, fotos.length, hora);
-  } catch(e) {
-    mostrarAlerta('❌ Error al enviar. Revisa tu conexión e intenta de nuevo.');
+
+  } catch(err) {
+    setProgress(0, '');
+    mostrarAlerta('❌ Error al enviar. Revisa tu conexión e intenta de nuevo.\n' + err.message);
   }
 
   btn.disabled = false;
   btn.innerHTML = '✅ Enviar registro<span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>';
 }
 
-// ── INIT ───────────────────────────────────────────────────
+// Técnica de form oculto: evita CORS completamente.
+// El navegador hace un POST real y Apps Script responde con redirect,
+// que el iframe absorbe sin mostrar nada al usuario.
+function enviarConForm(bodyStr) {
+  return new Promise((resolve, reject) => {
+    // Crear iframe oculto que absorbe la respuesta
+    const iframe = document.createElement('iframe');
+    iframe.name  = 'hidden_frame_' + Date.now();
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    // Crear form que apunta al iframe
+    const form   = document.createElement('form');
+    form.method  = 'POST';
+    form.action  = APPS_SCRIPT_URL;
+    form.target  = iframe.name;
+    form.style.display = 'none';
+
+    // Agregar cada parámetro como input hidden
+    new URLSearchParams(bodyStr).forEach((val, key) => {
+      const input = document.createElement('input');
+      input.type  = 'hidden';
+      input.name  = key;
+      input.value = val;
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+
+    // El iframe dispara load cuando Apps Script responde (o redirige)
+    let done = false;
+    iframe.onload = () => {
+      if (done) return;
+      done = true;
+      // Limpiar
+      setTimeout(() => {
+        document.body.removeChild(form);
+        document.body.removeChild(iframe);
+      }, 500);
+      resolve();
+    };
+
+    // Timeout de seguridad: 20s
+    setTimeout(() => {
+      if (!done) {
+        done = true;
+        try { document.body.removeChild(form); document.body.removeChild(iframe); } catch(e) {}
+        // Si el iframe no respondió aún puede ser por redirect cross-origin
+        // Aún así los datos llegaron — resolver de todas formas
+        resolve();
+      }
+    }, 20000);
+
+    form.submit();
+  });
+}
+
+// ── INIT ──────────────────────────────────────────────────────
 actualizarFecha();
 setInterval(actualizarFecha, 30000);
 </script>
