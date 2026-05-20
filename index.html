@@ -3,62 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Cafam Biológicos – Radicados</title>
+<title>Cafam Biológicos – Evidencias</title>
 <style>
 :root {
-  --azul:       #0D2E6E;
-  --azul-mid:   #1A4BA8;
-  --azul-acc:   #2563EB;
-  --azul-light: #E6EDF8;
-  --azul-pale:  #F0F4FC;
-  --rojo:       #C0392B;
-  --rojo-light: #FDECEA;
-  --verde-ok:   #15803D;
-  --verde-bg:   #F0FDF4;
-  --gris:       #6B7280;
-  --gris-light: #F3F4F6;
-  --texto:      #111827;
-  --borde:      rgba(13,46,110,0.13);
-  --radio:      14px;
-  --font:       'Segoe UI', system-ui, sans-serif;
+  --azul:      #0D2E6E;
+  --azul-mid:  #1A4BA8;
+  --azul-acc:  #2563EB;
+  --azul-lt:   #E6EDF8;
+  --azul-pale: #F0F4FC;
+  --verde:     #15803D;
+  --verde-bg:  #F0FDF4;
+  --rojo:      #C0392B;
+  --rojo-lt:   #FDECEA;
+  --gris:      #6B7280;
+  --gris-lt:   #F3F4F6;
+  --texto:     #111827;
+  --borde:     rgba(13,46,110,0.13);
+  --r:         14px;
+  --font:      'Segoe UI', system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
 body { font-family: var(--font); background: #EEF2FA; min-height: 100vh; color: var(--texto); }
 
-/* ── HEADER ── */
+/* HEADER */
 header {
   background: var(--azul);
   padding: 13px 18px;
   display: flex;
   align-items: center;
   gap: 13px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: sticky; top: 0; z-index: 10;
   box-shadow: 0 2px 14px rgba(13,46,110,0.28);
 }
-
-.logo-img {
-  height: 42px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  flex-shrink: 0;
-}
-
-.hdr-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
-
+.logo-img { height: 42px; width: auto; object-fit: contain; filter: brightness(0) invert(1); flex-shrink: 0; }
+.hdr-div  { width: 1px; height: 36px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
 .hdr-text h1 { color: #fff; font-size: 15px; font-weight: 700; }
-.hdr-text p  { color: rgba(255,255,255,0.65); font-size: 11px; margin-top: 2px; }
+.hdr-text p  { color: rgba(255,255,255,0.62); font-size: 11px; margin-top: 2px; }
 
-/* ── LAYOUT ── */
-.main { padding: 18px 14px 36px; max-width: 480px; margin: 0 auto; }
+/* LAYOUT */
+.main { padding: 18px 14px 40px; max-width: 480px; margin: 0 auto; }
 
 .card {
   background: #fff;
-  border-radius: var(--radio);
+  border-radius: var(--r);
   border: 1px solid var(--borde);
   padding: 18px;
   margin-bottom: 14px;
@@ -66,502 +54,196 @@ header {
 }
 
 .card-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--azul-mid);
-  text-transform: uppercase;
-  letter-spacing: 0.9px;
+  font-size: 11px; font-weight: 700; color: var(--azul-mid);
+  text-transform: uppercase; letter-spacing: 0.9px;
   margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  display: flex; align-items: center; gap: 7px;
 }
 
 label { display: block; font-size: 13px; font-weight: 500; color: var(--gris); margin-bottom: 6px; }
 
-input[type="text"], input[type="time"] {
-  width: 100%;
-  padding: 13px 16px;
-  font-size: 16px;
-  border: 1.5px solid #D1D5DB;
-  border-radius: 10px;
-  outline: none;
-  font-family: var(--font);
-  color: var(--texto);
-  background: #fff;
-  transition: border-color 0.18s, box-shadow 0.18s;
-}
-
-input[type="text"] { text-transform: uppercase; }
-input[type="time"] { text-transform: none; }
-
-input:focus {
-  border-color: var(--azul-acc);
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.13);
-}
-
-/* ── HORA ── */
-.hora-display {
-  font-size: 36px;
-  font-weight: 800;
-  color: var(--azul);
-  text-align: center;
-  letter-spacing: 2px;
-  padding: 4px 0 2px;
-}
-
-.fecha-display {
-  font-size: 12px;
-  color: var(--gris);
-  text-align: center;
-  margin-bottom: 14px;
-}
-
-.hora-row { display: flex; align-items: center; gap: 10px; }
-.hora-row input { flex: 1; }
-
-.btn-hora {
-  padding: 13px 14px;
-  background: var(--azul-light);
-  border: 1.5px solid var(--azul-mid);
-  border-radius: 10px;
-  color: var(--azul);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.btn-hora:active { transform: scale(0.96); }
-
-/* ── ZONA DE ADJUNTO ── */
-.drop-zone {
-  border: 2px dashed #BFCFE8;
-  border-radius: 12px;
-  background: var(--azul-pale);
-  padding: 28px 16px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.drop-zone:hover, .drop-zone.drag-over {
-  border-color: var(--azul-acc);
-  background: #E0EAFF;
-}
-
-.drop-icon { font-size: 40px; margin-bottom: 8px; display: block; }
-
-.drop-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--azul);
-  margin-bottom: 4px;
-}
-
-.drop-sub {
-  font-size: 12px;
-  color: var(--gris);
-  line-height: 1.5;
-}
-
-#fileInput { display: none; }
-
-/* Botones de adjunto */
-.attach-btns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.btn-attach {
-  padding: 13px 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  transition: transform 0.15s;
-}
-
-.btn-attach.primary {
-  background: var(--azul-mid);
-  color: #fff;
-  border: none;
-}
-
-.btn-attach.secondary {
-  background: var(--azul-light);
-  color: var(--azul);
-  border: 1.5px solid var(--azul-mid);
-}
-
-.btn-attach:active { transform: scale(0.96); }
-
-/* ── OCR STATUS ── */
-.ocr-status {
-  font-size: 13px;
-  color: var(--azul-mid);
-  text-align: center;
-  min-height: 22px;
-  font-weight: 500;
-  padding: 4px 0;
-}
-
-/* ── PREVIEW DE IMAGEN ── */
-.img-preview-wrap {
-  display: none;
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 10px;
-  border: 1.5px solid var(--azul-light);
-}
-
-.img-preview-wrap img {
-  width: 100%;
-  max-height: 220px;
-  object-fit: contain;
-  background: #f8faff;
-  display: block;
-}
-
-.img-preview-bar {
-  background: var(--azul);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.btn-remove-img {
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.7);
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-}
-
-/* Texto extraído */
-.ocr-result-box {
-  display: none;
-  background: var(--azul-pale);
-  border: 1.5px solid var(--azul-light);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-}
-
-.ocr-result-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--azul-mid);
+input[type="text"] {
+  width: 100%; padding: 13px 16px; font-size: 16px;
+  border: 1.5px solid #D1D5DB; border-radius: 10px; outline: none;
+  font-family: var(--font); color: var(--texto); background: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  transition: border-color .18s, box-shadow .18s;
 }
+input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px rgba(37,99,235,0.13); }
 
-.ocr-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.ocr-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  background: #fff;
-  border: 1.5px solid var(--azul-light);
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: 'Courier New', monospace;
-  font-weight: 700;
-  color: var(--azul);
-  cursor: pointer;
-  transition: border-color 0.15s;
-}
-
-.ocr-chip:hover { border-color: var(--azul-acc); background: var(--azul-pale); }
-.ocr-chip.seleccionado { background: var(--azul-mid); color: #fff; border-color: var(--azul-mid); }
-
-.chip-add-icon { font-size: 14px; }
-
-/* Separador */
-.sep { height: 1px; background: var(--borde); margin: 14px 0; }
-
-/* ── LISTA ── */
-.badge-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--azul-acc);
-  color: #fff;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  margin-left: auto;
-}
-
-.lista-radicados {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.radicado-item {
+/* INFO AUTOMÁTICA */
+.info-auto {
   background: var(--azul-pale);
   border-radius: 10px;
-  border: 1px solid var(--borde);
-  overflow: hidden;
-  animation: slideIn 0.22s ease;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.radicado-header {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  gap: 9px;
-}
-
-.radicado-num {
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--azul-acc);
-  min-width: 20px;
-  text-align: center;
-}
-
-.radicado-text {
-  flex: 1;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--texto);
-  font-family: 'Courier New', monospace;
-  word-break: break-all;
-}
-
-.radicado-hora { font-size: 11px; color: var(--gris); white-space: nowrap; }
-
-.radicado-thumb {
-  width: 36px;
-  height: 36px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid var(--azul-light);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.btn-eliminar {
-  background: none;
-  border: none;
-  color: #CBD5E1;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 3px 4px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.btn-eliminar:active { color: var(--rojo); }
-
-.empty-state {
-  text-align: center;
-  padding: 28px 0 10px;
-  color: #C0C8D8;
-  font-size: 14px;
-}
-
-.empty-icon { font-size: 36px; margin-bottom: 8px; }
-
-.hint { font-size: 12px; color: var(--gris); text-align: center; margin-top: 10px; line-height: 1.5; }
-
-/* ── BOTÓN ENVIAR ── */
-.btn-enviar {
-  width: 100%;
-  padding: 18px;
-  background: var(--azul);
-  color: #fff;
-  border: none;
-  border-radius: var(--radio);
-  font-size: 17px;
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: 0 4px 18px rgba(13,46,110,0.32);
-  transition: background 0.2s;
-}
-
-.btn-enviar:active { background: var(--azul-mid); }
-.btn-enviar:disabled { background: #94A3B8; cursor: not-allowed; box-shadow: none; }
-
-.btn-enviar-sub {
-  display: block;
-  font-size: 12px;
-  font-weight: 400;
-  opacity: 0.72;
-  margin-top: 3px;
-}
-
-/* ── SPINNER ── */
-.spinner {
-  display: inline-block;
-  width: 15px; height: 15px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  vertical-align: -3px;
-  margin-right: 6px;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── ALERTA INLINE ── */
-.alerta {
-  border-radius: 10px;
+  border: 1px solid var(--azul-lt);
   padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 500;
+  display: flex; align-items: center; gap: 12px;
+}
+.info-auto-icon { font-size: 22px; flex-shrink: 0; }
+.info-auto-val  { font-size: 17px; font-weight: 800; color: var(--azul); }
+.info-auto-lbl  { font-size: 11px; color: var(--azul-mid); font-weight: 600; margin-top: 1px; }
+
+/* EVIDENCIAS */
+.ev-counter {
+  display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 14px;
-  display: none;
+}
+.ev-dots { display: flex; gap: 8px; }
+.ev-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--azul-lt);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #CBD5E1;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.ev-dot.lleno  { background: var(--azul-mid); border-color: var(--azul-mid); color: #fff; }
+.ev-dot.activo { border-color: var(--azul-acc); color: var(--azul-acc); background: var(--azul-pale); }
+
+.ev-label { font-size: 13px; font-weight: 600; color: var(--gris); }
+.ev-label span { color: var(--azul); font-weight: 800; }
+
+/* Grid de 3 slots */
+.ev-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
-.alerta.error  { background: var(--rojo-light); color: #7B1A14; border: 1px solid rgba(192,57,43,0.2); }
+.ev-slot {
+  aspect-ratio: 3/4;
+  border-radius: 10px;
+  border: 2px dashed #BFCFE8;
+  background: var(--azul-pale);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  cursor: pointer; position: relative; overflow: hidden;
+  transition: border-color .2s, background .2s;
+}
+
+.ev-slot:hover:not(.lleno) { border-color: var(--azul-acc); background: #E0EAFF; }
+
+.ev-slot.lleno { border: 2px solid var(--azul-mid); cursor: default; }
+
+.ev-slot-icon  { font-size: 26px; margin-bottom: 5px; }
+.ev-slot-num   { font-size: 10px; font-weight: 700; color: var(--azul-mid); }
+
+.ev-slot img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+
+.ev-slot .slot-overlay {
+  position: absolute; inset: 0;
+  background: rgba(13,46,110,0.55);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .2s; border-radius: 8px;
+}
+
+.ev-slot.lleno:hover .slot-overlay { opacity: 1; }
+
+.slot-btn-del {
+  background: rgba(255,255,255,0.9);
+  border: none; border-radius: 50%;
+  width: 32px; height: 32px;
+  font-size: 16px; cursor: pointer; color: var(--rojo);
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Botones adjuntar */
+.attach-btns {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 6px;
+}
+
+.btn-at {
+  padding: 12px 10px; border-radius: 10px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: transform .15s;
+}
+
+.btn-at.p { background: var(--azul-mid); color: #fff; border: none; }
+.btn-at.s { background: var(--azul-lt); color: var(--azul); border: 1.5px solid var(--azul-mid); }
+.btn-at:active { transform: scale(0.96); }
+.btn-at:disabled { opacity: .45; cursor: not-allowed; transform: none !important; }
+
+.hint { font-size: 12px; color: var(--gris); text-align: center; line-height: 1.5; margin-top: 8px; }
+
+/* ALERTA */
+.alerta { border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 500; margin-bottom: 14px; display: none; }
+.alerta.error { background: var(--rojo-lt); color: #7B1A14; border: 1px solid rgba(192,57,43,0.2); }
 .alerta.visible { display: block; }
 
-/* ── MODAL ── */
-.modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(13,46,110,0.60);
-  z-index: 100;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 0;
+/* BOTÓN ENVIAR */
+.btn-enviar {
+  width: 100%; padding: 18px;
+  background: var(--azul); color: #fff; border: none;
+  border-radius: var(--r); font-size: 17px; font-weight: 800;
+  cursor: pointer; box-shadow: 0 4px 18px rgba(13,46,110,0.32);
+  transition: background .2s;
+}
+.btn-enviar:active  { background: var(--azul-mid); }
+.btn-enviar:disabled{ background: #94A3B8; cursor: not-allowed; box-shadow: none; }
+.btn-enviar-sub     { display: block; font-size: 12px; font-weight: 400; opacity: .72; margin-top: 3px; }
+
+/* SPINNER */
+.sp {
+  display: inline-block; width: 15px; height: 15px;
+  border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
+  border-radius: 50%; animation: spin .7s linear infinite;
+  vertical-align: -3px; margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* MODAL */
+.modal-bd {
+  display: none; position: fixed; inset: 0;
+  background: rgba(13,46,110,0.62); z-index: 100;
+  align-items: flex-end; justify-content: center;
   backdrop-filter: blur(3px);
 }
-
-.modal-backdrop.visible { display: flex; }
+.modal-bd.visible { display: flex; }
 
 .modal {
-  background: #fff;
-  border-radius: 24px 24px 0 0;
-  padding: 30px 24px 36px;
-  width: 100%;
-  max-width: 480px;
+  background: #fff; border-radius: 24px 24px 0 0;
+  padding: 30px 24px 40px; width: 100%; max-width: 480px;
   text-align: center;
-  animation: slideUp 0.28s cubic-bezier(0.34,1.4,0.64,1);
+  animation: slideUp .28s cubic-bezier(.34,1.4,.64,1);
 }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
-}
+.modal-check { width: 70px; height: 70px; background: var(--verde-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 38px; }
+.modal h2    { font-size: 20px; font-weight: 800; color: var(--azul); margin-bottom: 8px; }
+.modal p     { font-size: 14px; color: var(--gris); line-height: 1.6; }
 
-.modal-check {
-  width: 68px; height: 68px;
-  background: var(--verde-bg);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 16px;
-  font-size: 36px;
-}
+.modal-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 20px; }
+.modal-card  { background: var(--azul-pale); border-radius: 10px; padding: 12px; }
+.modal-card-val { font-size: 26px; font-weight: 800; color: var(--azul); }
+.modal-card-lbl { font-size: 11px; color: var(--azul-mid); font-weight: 600; margin-top: 2px; }
 
-.modal h2 {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--azul);
-  margin-bottom: 8px;
-}
+.modal-nombre { font-size: 14px; font-weight: 700; color: var(--azul); background: var(--azul-pale); border-radius: 8px; padding: 10px 14px; margin-bottom: 20px; }
 
-.modal p { font-size: 14px; color: var(--gris); line-height: 1.6; margin-bottom: 0; }
-
-.modal-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 18px 0 22px;
-}
-
-.modal-card {
-  background: var(--azul-pale);
-  border-radius: 10px;
-  padding: 12px;
-}
-
-.modal-card-val {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--azul);
-}
-
-.modal-card-lbl {
-  font-size: 11px;
-  color: var(--azul-mid);
-  font-weight: 600;
-  margin-top: 2px;
-}
-
-.modal-nombre {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--azul);
-  background: var(--azul-pale);
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 20px;
-}
-
-.btn-modal-ok {
-  width: 100%;
-  padding: 16px;
-  background: var(--azul);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
+.btn-modal-ok { width: 100%; padding: 16px; background: var(--azul); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; }
 .btn-modal-ok:active { background: var(--azul-mid); }
+
+/* inputs hidden */
+#fileCamara, #fileGaleria { display: none; }
 </style>
 </head>
 <body>
 
 <header>
-  <img src="https://i.ibb.co/Tq23KgR9/download-removebg-preview.png"
-       class="logo-img" alt="Cafam Biológicos"
+  <img src="https://i.ibb.co/Tq23KgR9/download-removebg-preview.png" class="logo-img" alt="Cafam"
        onerror="this.outerHTML='<div style=\'width:38px;height:38px;background:#1A4BA8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;\'>🧬</div>'">
-  <div class="hdr-divider"></div>
+  <div class="hdr-div"></div>
   <div class="hdr-text">
     <h1>Cafam Biológicos</h1>
-    <p>Registro de Radicados</p>
+    <p>Registro de evidencias fotográficas</p>
   </div>
 </header>
 
@@ -573,411 +255,261 @@ input:focus {
   <div class="card">
     <div class="card-title">
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      Datos del mensajero
+      Mensajero
     </div>
-    <label for="mensajero">Nombre completo</label>
+    <label for="mensajero">Tu nombre completo</label>
     <input type="text" id="mensajero" placeholder="Escribe tu nombre..."
            autocomplete="off" autocorrect="off" spellcheck="false"
-           oninput="this.value = this.value.toUpperCase()">
+           oninput="this.value=this.value.toUpperCase()">
   </div>
 
-  <!-- HORA -->
+  <!-- FECHA Y HORA AUTO -->
   <div class="card">
     <div class="card-title">
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-      Hora de entrega
+      Fecha y hora
     </div>
-    <div class="hora-display" id="horaActual">--:--</div>
-    <div class="fecha-display" id="fechaActual">cargando...</div>
-    <div class="hora-row">
-      <input type="time" id="horaEntrega">
-      <button class="btn-hora" onclick="usarHoraActual()">⏱ Ahora</button>
+    <div class="info-auto">
+      <div class="info-auto-icon">🗓️</div>
+      <div>
+        <div class="info-auto-val" id="fechaDisplay">—</div>
+        <div class="info-auto-lbl">Se registrará automáticamente al enviar</div>
+      </div>
     </div>
   </div>
 
-  <!-- RADICADOS / ADJUNTO -->
+  <!-- EVIDENCIAS -->
   <div class="card">
     <div class="card-title">
-      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-      Adjuntar documento
-      <span class="badge-count" id="contadorBadge">0</span>
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      Evidencias fotográficas
     </div>
 
-    <!-- Zona de arrastre -->
-    <div class="drop-zone" id="dropZone"
-         onclick="document.getElementById('fileGaleria').click()"
-         ondragover="dragOver(event)"
-         ondragleave="dragLeave(event)"
-         ondrop="dropFile(event)">
-      <span class="drop-icon">📄</span>
-      <div class="drop-title">Toca para adjuntar el documento</div>
-      <div class="drop-sub">Foto de la hoja, imagen o PDF<br>desde galería o computador</div>
+    <!-- Contador visual -->
+    <div class="ev-counter">
+      <div class="ev-dots">
+        <div class="ev-dot activo" id="dot0">1</div>
+        <div class="ev-dot" id="dot1">2</div>
+        <div class="ev-dot" id="dot2">3</div>
+      </div>
+      <div class="ev-label">
+        <span id="evCount">0</span> de <span>3</span> evidencias
+      </div>
     </div>
 
-    <!-- Inputs de archivo -->
-    <input type="file" id="fileGaleria"   accept="image/*,application/pdf" onchange="procesarArchivo(this, 'galeria')">
-    <input type="file" id="fileCamara"    accept="image/*" capture="environment" onchange="procesarArchivo(this, 'camara')">
+    <!-- Grid de 3 slots -->
+    <div class="ev-grid">
+      <div class="ev-slot" id="slot0" onclick="abrirSelector(0)">
+        <div class="ev-slot-icon">📷</div>
+        <div class="ev-slot-num">Evidencia 1</div>
+      </div>
+      <div class="ev-slot" id="slot1" onclick="abrirSelector(1)">
+        <div class="ev-slot-icon">📷</div>
+        <div class="ev-slot-num">Evidencia 2</div>
+      </div>
+      <div class="ev-slot" id="slot2" onclick="abrirSelector(2)">
+        <div class="ev-slot-icon">📷</div>
+        <div class="ev-slot-num">Evidencia 3</div>
+      </div>
+    </div>
 
-    <!-- Botones -->
+    <!-- Botones adjuntar -->
     <div class="attach-btns">
-      <button class="btn-attach primary" onclick="document.getElementById('fileCamara').click()">
-        📷 Tomar foto
-      </button>
-      <button class="btn-attach secondary" onclick="document.getElementById('fileGaleria').click()">
-        🖼 Galería / PDF
-      </button>
+      <button class="btn-at p" id="btnCamara" onclick="dispararInput('camara')">📷 Tomar foto</button>
+      <button class="btn-at s" id="btnGaleria" onclick="dispararInput('galeria')">🖼 Galería</button>
     </div>
 
-    <!-- Preview imagen -->
-    <div class="img-preview-wrap" id="imgPreviewWrap">
-      <div class="img-preview-bar">
-        <span id="imgNombre">documento.jpg</span>
-        <button class="btn-remove-img" onclick="limpiarImagen()">✕</button>
-      </div>
-      <img id="imgPreview" src="" alt="Vista previa">
-    </div>
+    <input type="file" id="fileCamara"  accept="image/*" capture="environment" onchange="procesarImagen(this)">
+    <input type="file" id="fileGaleria" accept="image/*" onchange="procesarImagen(this)">
 
-    <!-- Status OCR -->
-    <div class="ocr-status" id="ocrStatus"></div>
-
-    <!-- Chips de resultado OCR -->
-    <div class="ocr-result-box" id="ocrResultBox">
-      <div class="ocr-result-label">Texto detectado — toca para agregar</div>
-      <div class="ocr-chips" id="ocrChips"></div>
-    </div>
-
-    <div class="sep"></div>
-
-    <!-- Lista de radicados -->
-    <div class="card-title" style="margin-bottom:10px;">
-      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
-      Lista de radicados registrados
-    </div>
-
-    <div id="listaRadicados" class="lista-radicados">
-      <div class="empty-state">
-        <div class="empty-icon">📂</div>
-        Aún no hay radicados
-      </div>
-    </div>
-
-    <p class="hint">💡 Adjunta el documento, el sistema lee el radicado automáticamente.<br>Revisa la lista antes de enviar.</p>
+    <p class="hint">Máximo 3 evidencias · Toca una foto para eliminarla</p>
   </div>
 
   <!-- ENVIAR -->
   <button class="btn-enviar" id="btnEnviar" onclick="enviarDatos()">
-    ✅ Enviar registros
-    <span class="btn-enviar-sub">Guarda en Google Sheets y envía fotos por correo</span>
+    ✅ Enviar registro
+    <span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>
   </button>
 
 </div>
 
 <!-- MODAL ÉXITO -->
-<div class="modal-backdrop" id="modalBackdrop">
+<div class="modal-bd" id="modalBd">
   <div class="modal">
     <div class="modal-check">✅</div>
-    <h2>¡Registros enviados!</h2>
-    <p>Los radicados y documentos fueron<br>guardados y enviados correctamente.</p>
-    <div class="modal-nombre" id="modalMensajero">—</div>
+    <h2>¡Registro enviado!</h2>
+    <p>Las evidencias fueron guardadas<br>y enviadas correctamente.</p>
     <div class="modal-cards">
       <div class="modal-card">
-        <div class="modal-card-val" id="modalCantidad">0</div>
-        <div class="modal-card-lbl">Radicados</div>
+        <div class="modal-card-val" id="mFotos">0</div>
+        <div class="modal-card-lbl">Evidencias enviadas</div>
       </div>
       <div class="modal-card">
-        <div class="modal-card-val" id="modalFotos">0</div>
-        <div class="modal-card-lbl">Documentos adjuntos</div>
+        <div class="modal-card-val" id="mHora">—</div>
+        <div class="modal-card-lbl">Hora de registro</div>
       </div>
     </div>
-    <p style="font-size:12px; color:#9CA3AF; margin-bottom:20px;">
-      La doctora y coordinadores recibirán el resumen con los documentos adjuntos.
-    </p>
+    <div class="modal-nombre" id="mMensajero">—</div>
+    <p style="font-size:12px;color:#9CA3AF;margin-bottom:20px;">La doctora y coordinadores recibirán las evidencias por correo.</p>
     <button class="btn-modal-ok" onclick="cerrarModal()">Nuevo registro</button>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLxUuykEpRi6w9B3s--l5LWMo0c9QenXpd9iZreA-Kt736cSaeO5hl5h6n_hKzrZRF/exec';
+// ─── CONFIGURACIÓN ─────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8dCJrruDNY2mbSlY--5dN1Md7ry97dGaiM3V2ev1X5FESRnA60903Gnv8JQGWRmx-/exec';
+// ───────────────────────────────────────────────────────────
 
-let radicados   = [];   // [{codigo, hora, imgBase64, imgNombre, imgTipo}]
-let ocrWorker   = null;
-let imgActual   = null; // {base64, nombre, tipo, dataUrl}
+const MAX_EV = 3;
+let evidencias = [null, null, null]; // {dataUrl, base64, tipo, nombre}
+let slotActivo = 0;
 
-// ── RELOJ ────────────────────────────────────────────────────
+// ── RELOJ ──────────────────────────────────────────────────
 function padZ(n) { return String(n).padStart(2,'0'); }
+
 function horaTexto(d) { return padZ(d.getHours())+':'+padZ(d.getMinutes()); }
-function fechaTexto(d) {
+
+function fechaCompleta(d) {
   const D=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   const M=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  return D[d.getDay()]+', '+d.getDate()+' de '+M[d.getMonth()]+' de '+d.getFullYear();
-}
-function actualizarReloj() {
-  const n=new Date();
-  document.getElementById('horaActual').textContent=horaTexto(n);
-  document.getElementById('fechaActual').textContent=fechaTexto(n);
-}
-function usarHoraActual() { document.getElementById('horaEntrega').value=horaTexto(new Date()); }
-
-// ── DRAG & DROP ───────────────────────────────────────────────
-function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
-function dragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
-function dropFile(e) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (file) procesarArchivoObj(file);
+  return D[d.getDay()]+' '+d.getDate()+' de '+M[d.getMonth()]+', '+horaTexto(d);
 }
 
-// ── PROCESAR ARCHIVO ──────────────────────────────────────────
-function procesarArchivo(input) {
+function actualizarFecha() {
+  document.getElementById('fechaDisplay').textContent = fechaCompleta(new Date());
+}
+
+// ── SLOTS ──────────────────────────────────────────────────
+function abrirSelector(idx) {
+  const ev = evidencias[idx];
+  if (ev) return; // ya tiene imagen, click en overlay elimina
+  slotActivo = idx;
+  // En móvil, abre directo cámara; en desktop galería
+  const esMobil = /Mobi|Android/i.test(navigator.userAgent);
+  dispararInput(esMobil ? 'camara' : 'galeria');
+}
+
+function dispararInput(tipo) {
+  const llenos = evidencias.filter(Boolean).length;
+  if (llenos >= MAX_EV) { mostrarAlerta('Ya tienes 3 evidencias. Elimina una para agregar.'); return; }
+  // Encontrar primer slot vacío
+  slotActivo = evidencias.findIndex(e => !e);
+  document.getElementById(tipo === 'camara' ? 'fileCamara' : 'fileGaleria').click();
+}
+
+function procesarImagen(input) {
   if (!input.files || !input.files[0]) return;
-  procesarArchivoObj(input.files[0]);
-  input.value = '';
-}
-
-function procesarArchivoObj(file) {
-  setOCRStatus('⏳ Leyendo documento...');
-  limpiarResultadoOCR();
-
+  const file = input.files[0];
   const reader = new FileReader();
   reader.onload = e => {
     const dataUrl = e.target.result;
     const base64  = dataUrl.split(',')[1];
-    const tipo    = file.type;
-    const nombre  = file.name;
-
-    imgActual = { base64, nombre, tipo, dataUrl };
-
-    // Mostrar preview
-    const wrap = document.getElementById('imgPreviewWrap');
-    const img  = document.getElementById('imgPreview');
-    document.getElementById('imgNombre').textContent = nombre;
-
-    if (tipo === 'application/pdf') {
-      img.src = 'data:image/svg+xml,' + encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
-          <rect width="400" height="200" fill="#F0F4FC"/>
-          <text x="200" y="90" text-anchor="middle" font-size="48">📄</text>
-          <text x="200" y="130" text-anchor="middle" font-family="Arial" font-size="16" fill="#1A4BA8" font-weight="bold">PDF adjunto</text>
-          <text x="200" y="155" text-anchor="middle" font-family="Arial" font-size="12" fill="#6B7280">${nombre}</text>
-        </svg>`);
-      wrap.style.display = 'block';
-      setOCRStatus('📄 PDF adjunto. Escribe el número de radicado manualmente.');
-      mostrarEntradaManual();
-    } else {
-      img.src = dataUrl;
-      wrap.style.display = 'block';
-      ejecutarOCR(dataUrl);
-    }
+    evidencias[slotActivo] = {
+      dataUrl, base64,
+      tipo:   file.type   || 'image/jpeg',
+      nombre: file.name   || ('evidencia_' + (slotActivo+1) + '.jpg')
+    };
+    renderSlots();
   };
   reader.readAsDataURL(file);
-}
-
-// ── ENTRADA MANUAL (para PDFs) ────────────────────────────────
-function mostrarEntradaManual() {
-  if (document.getElementById('inputManual')) return;
-  const div = document.createElement('div');
-  div.id = 'wrapManual';
-  div.style.cssText = 'margin-bottom:10px;';
-  div.innerHTML = `
-    <label style="font-size:13px;font-weight:500;color:#6B7280;margin-bottom:6px;display:block;">Número de radicado</label>
-    <div style="display:flex;gap:8px;">
-      <input type="text" id="inputManual" placeholder="Ej: 20241234"
-        style="flex:1;padding:13px 16px;font-size:15px;border:1.5px solid #D1D5DB;border-radius:10px;outline:none;font-family:monospace;text-transform:uppercase;"
-        oninput="this.value=this.value.toUpperCase()"
-        onkeydown="if(event.key==='Enter')agregarManual()">
-      <button onclick="agregarManual()"
-        style="padding:13px 16px;background:#1A4BA8;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;">✓</button>
-    </div>`;
-  document.getElementById('ocrStatus').after(div);
-}
-
-function agregarManual() {
-  const input = document.getElementById('inputManual');
-  if (!input) return;
-  const val = input.value.trim().toUpperCase();
-  if (val) agregarRadicado(val);
   input.value = '';
 }
 
-// ── OCR ───────────────────────────────────────────────────────
-async function ejecutarOCR(dataUrl) {
-  setOCRStatus('🔍 Analizando documento...');
-  try {
-    if (!ocrWorker) {
-      setOCRStatus('⏳ Preparando motor OCR...');
-      ocrWorker = await Tesseract.createWorker('spa+eng', 1, { logger: ()=>{} });
-      await ocrWorker.setParameters({
-        tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-/ .',
-      });
+function eliminarEvidencia(idx) {
+  evidencias[idx] = null;
+  renderSlots();
+}
+
+function renderSlots() {
+  const llenos = evidencias.filter(Boolean).length;
+  document.getElementById('evCount').textContent = llenos;
+
+  for (let i = 0; i < MAX_EV; i++) {
+    const slot = document.getElementById('slot' + i);
+    const dot  = document.getElementById('dot' + i);
+    const ev   = evidencias[i];
+
+    if (ev) {
+      slot.classList.add('lleno');
+      slot.innerHTML = `
+        <img src="${ev.dataUrl}" alt="Evidencia ${i+1}">
+        <div class="slot-overlay">
+          <button class="slot-btn-del" onclick="event.stopPropagation(); eliminarEvidencia(${i})">✕</button>
+        </div>`;
+      dot.classList.add('lleno');
+      dot.classList.remove('activo');
+      dot.textContent = '✓';
+    } else {
+      slot.classList.remove('lleno');
+      slot.innerHTML = `<div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia ${i+1}</div>`;
+      dot.classList.remove('lleno');
+      // dot activo = primer vacío
+      const primerVacio = evidencias.findIndex(e => !e);
+      if (i === primerVacio) {
+        dot.classList.add('activo');
+        dot.textContent = String(i+1);
+      } else {
+        dot.classList.remove('activo');
+        dot.textContent = String(i+1);
+      }
     }
-
-    setOCRStatus('🔍 Reconociendo texto...');
-    const { data: { text } } = await ocrWorker.recognize(dataUrl);
-
-    // Extraer candidatos a radicado: secuencias de dígitos/alfanumérico de 4-20 chars
-    const lineas = text.split('\n')
-      .map(l => l.trim().replace(/\s+/g,' ').toUpperCase())
-      .filter(l => l.length >= 4 && l.length <= 60 && /\d/.test(l));
-
-    // Eliminar duplicados y ruido
-    const uniq = [...new Set(lineas)].slice(0, 8);
-
-    if (uniq.length === 0) {
-      setOCRStatus('⚠️ No se detectó texto numérico. Escribe el radicado manualmente.');
-      mostrarEntradaManual();
-      return;
-    }
-
-    setOCRStatus('✅ Texto detectado — selecciona el radicado correcto:');
-    mostrarChips(uniq);
-
-  } catch(err) {
-    setOCRStatus('⚠️ No se pudo leer el documento. Escribe el radicado manualmente.');
-    mostrarEntradaManual();
   }
+
+  // Deshabilitar botones si lleno
+  const lleno = llenos >= MAX_EV;
+  document.getElementById('btnCamara').disabled  = lleno;
+  document.getElementById('btnGaleria').disabled = lleno;
 }
 
-function mostrarChips(lineas) {
-  const box   = document.getElementById('ocrResultBox');
-  const chips = document.getElementById('ocrChips');
-  chips.innerHTML = lineas.map(l => `
-    <div class="ocr-chip" onclick="seleccionarChip(this,'${l.replace(/'/g,"\\'")}')">
-      <span class="chip-add-icon">＋</span>${l}
-    </div>`).join('');
-  box.style.display = 'block';
-}
-
-function seleccionarChip(el, texto) {
-  el.classList.toggle('seleccionado');
-  if (el.classList.contains('seleccionado')) {
-    el.querySelector('.chip-add-icon').textContent = '✓';
-    agregarRadicado(texto);
-  } else {
-    el.querySelector('.chip-add-icon').textContent = '＋';
-  }
-}
-
-function limpiarResultadoOCR() {
-  document.getElementById('ocrResultBox').style.display = 'none';
-  document.getElementById('ocrChips').innerHTML = '';
-  const w = document.getElementById('wrapManual');
-  if (w) w.remove();
-}
-
-function limpiarImagen() {
-  imgActual = null;
-  document.getElementById('imgPreviewWrap').style.display = 'none';
-  document.getElementById('imgPreview').src = '';
-  setOCRStatus('');
-  limpiarResultadoOCR();
-}
-
-function setOCRStatus(msg) { document.getElementById('ocrStatus').textContent = msg; }
-
-// ── AGREGAR RADICADO ──────────────────────────────────────────
-function agregarRadicado(codigo) {
-  codigo = codigo.trim().toUpperCase();
-  if (!codigo) return;
-  if (radicados.find(r => r.codigo === codigo)) {
-    setOCRStatus('⚠️ Ese radicado ya estaba en la lista.');
-    return;
-  }
-  const hora = document.getElementById('horaEntrega').value || horaTexto(new Date());
-  radicados.push({
-    codigo,
-    hora,
-    imgBase64: imgActual ? imgActual.base64  : null,
-    imgNombre: imgActual ? imgActual.nombre  : null,
-    imgTipo:   imgActual ? imgActual.tipo    : null,
-    imgDataUrl:imgActual ? imgActual.dataUrl : null
-  });
-  renderLista();
-  setOCRStatus(`✅ Radicado agregado: ${codigo}`);
-
-  // Limpiar imagen para el siguiente
-  setTimeout(() => {
-    limpiarImagen();
-    setOCRStatus('');
-  }, 1800);
-}
-
-// ── LISTA ─────────────────────────────────────────────────────
-function eliminarRadicado(i) { radicados.splice(i,1); renderLista(); }
-
-function renderLista() {
-  const c = document.getElementById('listaRadicados');
-  document.getElementById('contadorBadge').textContent = radicados.length;
-  if (radicados.length === 0) {
-    c.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div>Aún no hay radicados</div>';
-    return;
-  }
-  c.innerHTML = radicados.map((r,i) => `
-    <div class="radicado-item">
-      <div class="radicado-header">
-        <span class="radicado-num">${i+1}</span>
-        <span class="radicado-text">${r.codigo}</span>
-        <span class="radicado-hora">⏱ ${r.hora}</span>
-        ${r.imgDataUrl ? `<img class="radicado-thumb" src="${r.imgDataUrl}" alt="doc" onclick="verImagen('${i}')">` : ''}
-        <button class="btn-eliminar" onclick="eliminarRadicado(${i})">✕</button>
-      </div>
-    </div>`).join('');
-}
-
-function verImagen(i) {
-  const r = radicados[i];
-  if (!r.imgDataUrl) return;
-  const w = window.open();
-  w.document.write(`<html><body style="margin:0;background:#111;display:flex;justify-content:center;"><img src="${r.imgDataUrl}" style="max-width:100%;height:auto;"></body></html>`);
-}
-
-// ── ALERTAS ───────────────────────────────────────────────────
+// ── ALERTA ─────────────────────────────────────────────────
 function mostrarAlerta(msg) {
   const el = document.getElementById('alerta');
   el.textContent = msg;
   el.classList.add('visible');
-  el.scrollIntoView({behavior:'smooth',block:'nearest'});
-  setTimeout(()=>el.classList.remove('visible'), 5000);
+  setTimeout(() => el.classList.remove('visible'), 4500);
 }
 
-// ── MODAL ─────────────────────────────────────────────────────
-function abrirModal(nombre, cantidad, fotos) {
-  document.getElementById('modalMensajero').textContent = '👤 ' + nombre;
-  document.getElementById('modalCantidad').textContent  = cantidad;
-  document.getElementById('modalFotos').textContent     = fotos;
-  document.getElementById('modalBackdrop').classList.add('visible');
+// ── MODAL ──────────────────────────────────────────────────
+function abrirModal(mensajero, fotos, hora) {
+  document.getElementById('mMensajero').textContent = '👤 ' + mensajero;
+  document.getElementById('mFotos').textContent     = fotos;
+  document.getElementById('mHora').textContent      = hora;
+  document.getElementById('modalBd').classList.add('visible');
 }
 
-function cerrarModal() { document.getElementById('modalBackdrop').classList.remove('visible'); }
+function cerrarModal() {
+  document.getElementById('modalBd').classList.remove('visible');
+  evidencias = [null, null, null];
+  renderSlots();
+  document.getElementById('mensajero').value = '';
+}
 
-// ── ENVÍO ─────────────────────────────────────────────────────
+// ── ENVÍO ──────────────────────────────────────────────────
 async function enviarDatos() {
   const mensajero = document.getElementById('mensajero').value.trim().toUpperCase();
-  const hora      = document.getElementById('horaEntrega').value;
+  const fotos     = evidencias.filter(Boolean);
 
-  if (!mensajero)          { mostrarAlerta('⚠️ Escribe tu nombre.'); return; }
-  if (!hora)               { mostrarAlerta('⚠️ Registra la hora de entrega.'); return; }
-  if (radicados.length===0){ mostrarAlerta('⚠️ Agrega al menos un radicado.'); return; }
+  if (!mensajero)    { mostrarAlerta('⚠️ Escribe tu nombre antes de enviar.'); return; }
+  if (fotos.length === 0) { mostrarAlerta('⚠️ Adjunta al menos una evidencia fotográfica.'); return; }
 
   const btn = document.getElementById('btnEnviar');
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Enviando...';
+  btn.innerHTML = '<span class="sp"></span> Enviando...';
 
   const ahora = new Date();
+  const hora  = horaTexto(ahora);
+
   const payload = {
     mensajero,
-    horaEntrega: hora,
-    fecha: ahora.toLocaleDateString('es-CO'),
+    fecha:     ahora.toLocaleDateString('es-CO'),
+    hora,
     timestamp: ahora.toISOString(),
-    radicados: radicados.map(r => ({
-      codigo:    r.codigo,
-      hora:      r.hora,
-      imgBase64: r.imgBase64,
-      imgNombre: r.imgNombre,
-      imgTipo:   r.imgTipo
-    }))
+    evidencias: evidencias.map((ev, i) => ev ? {
+      indice: i + 1,
+      base64: ev.base64,
+      tipo:   ev.tipo,
+      nombre: ev.nombre
+    } : null)
   };
 
   try {
@@ -987,29 +519,18 @@ async function enviarDatos() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-
-    const cant  = radicados.length;
-    const fotos = radicados.filter(r => r.imgBase64).length;
-
-    radicados = [];
-    renderLista();
-    document.getElementById('mensajero').value = '';
-    limpiarImagen();
-    usarHoraActual();
-    abrirModal(mensajero, cant, fotos);
-
+    abrirModal(mensajero, fotos.length, hora);
   } catch(e) {
-    mostrarAlerta('❌ Error al enviar. Revisa tu conexión.');
+    mostrarAlerta('❌ Error al enviar. Revisa tu conexión e intenta de nuevo.');
   }
 
   btn.disabled = false;
-  btn.innerHTML = '✅ Enviar registros<span class="btn-enviar-sub">Guarda en Google Sheets y envía fotos por correo</span>';
+  btn.innerHTML = '✅ Enviar registro<span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>';
 }
 
-// ── INIT ──────────────────────────────────────────────────────
-actualizarReloj();
-setInterval(actualizarReloj, 30000);
-usarHoraActual();
+// ── INIT ───────────────────────────────────────────────────
+actualizarFecha();
+setInterval(actualizarFecha, 30000);
 </script>
 </body>
 </html>
