@@ -5,191 +5,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Cafam Biológicos – Evidencias</title>
 <style>
-:root {
-  --azul:      #0D2E6E;
-  --azul-mid:  #1A4BA8;
-  --azul-acc:  #2563EB;
-  --azul-lt:   #E6EDF8;
-  --azul-pale: #F0F4FC;
-  --verde:     #15803D;
-  --verde-bg:  #F0FDF4;
-  --rojo:      #C0392B;
-  --rojo-lt:   #FDECEA;
-  --gris:      #6B7280;
-  --texto:     #111827;
-  --borde:     rgba(13,46,110,0.13);
-  --r:         14px;
-  --font:      'Segoe UI', system-ui, sans-serif;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: var(--font); background: #EEF2FA; min-height: 100vh; color: var(--texto); }
-
-header {
-  background: var(--azul); padding: 13px 18px;
-  display: flex; align-items: center; gap: 13px;
-  position: sticky; top: 0; z-index: 10;
-  box-shadow: 0 2px 14px rgba(13,46,110,0.28);
-}
-.logo-img { height: 42px; filter: brightness(0) invert(1); flex-shrink: 0; }
-.hdr-div  { width: 1px; height: 36px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
-.hdr-text h1 { color: #fff; font-size: 15px; font-weight: 700; }
-.hdr-text p  { color: rgba(255,255,255,0.62); font-size: 11px; margin-top: 2px; }
-
-.main { padding: 18px 14px 40px; max-width: 480px; margin: 0 auto; }
-
-.card {
-  background: #fff; border-radius: var(--r);
-  border: 1px solid var(--borde); padding: 18px;
-  margin-bottom: 14px; box-shadow: 0 1px 8px rgba(13,46,110,0.07);
-}
-.card-title {
-  font-size: 11px; font-weight: 700; color: var(--azul-mid);
-  text-transform: uppercase; letter-spacing: 0.9px;
-  margin-bottom: 14px; display: flex; align-items: center; gap: 7px;
-}
-label { display: block; font-size: 13px; font-weight: 500; color: var(--gris); margin-bottom: 6px; }
-input[type="text"] {
-  width: 100%; padding: 13px 16px; font-size: 16px;
-  border: 1.5px solid #D1D5DB; border-radius: 10px; outline: none;
-  font-family: var(--font); color: var(--texto); text-transform: uppercase;
-  transition: border-color .18s, box-shadow .18s;
-}
-input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px rgba(37,99,235,0.13); }
-
-.info-auto {
-  background: var(--azul-pale); border-radius: 10px;
-  border: 1px solid var(--azul-lt); padding: 12px 16px;
-  display: flex; align-items: center; gap: 12px;
-}
-.info-auto-icon { font-size: 22px; }
-.info-auto-val  { font-size: 17px; font-weight: 800; color: var(--azul); }
-.info-auto-lbl  { font-size: 11px; color: var(--azul-mid); font-weight: 600; margin-top: 1px; }
-
-/* Contador dots */
-.ev-counter { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.ev-dots    { display: flex; gap: 8px; }
-.ev-dot {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 2px solid var(--azul-lt); background: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: #CBD5E1; transition: all .2s;
-}
-.ev-dot.lleno  { background: var(--azul-mid); border-color: var(--azul-mid); color: #fff; }
-.ev-dot.activo { border-color: var(--azul-acc); color: var(--azul-acc); background: var(--azul-pale); }
-.ev-label      { font-size: 13px; font-weight: 600; color: var(--gris); }
-.ev-label span { color: var(--azul); font-weight: 800; }
-
-/* Grid slots */
-.ev-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px; }
-.ev-slot {
-  aspect-ratio: 3/4; border-radius: 10px;
-  border: 2px dashed #BFCFE8; background: var(--azul-pale);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  cursor: pointer; position: relative; overflow: hidden;
-  transition: border-color .2s, background .2s;
-}
-.ev-slot:hover:not(.lleno) { border-color: var(--azul-acc); background: #E0EAFF; }
-.ev-slot.lleno { border: 2px solid var(--azul-mid); cursor: default; }
-.ev-slot-icon  { font-size: 26px; margin-bottom: 5px; }
-.ev-slot-num   { font-size: 10px; font-weight: 700; color: var(--azul-mid); }
-.ev-slot img   { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ev-slot .ov   {
-  position: absolute; inset: 0; background: rgba(13,46,110,0.55);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity .2s;
-}
-.ev-slot.lleno:hover .ov { opacity: 1; }
-.slot-del {
-  background: rgba(255,255,255,0.92); border: none; border-radius: 50%;
-  width: 32px; height: 32px; font-size: 16px; cursor: pointer; color: var(--rojo);
-  display: flex; align-items: center; justify-content: center;
-}
-
-.attach-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
-.btn-at {
-  padding: 12px 10px; border-radius: 10px;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 7px;
-}
-.btn-at.p { background: var(--azul-mid); color: #fff; border: none; }
-.btn-at.s { background: var(--azul-lt); color: var(--azul); border: 1.5px solid var(--azul-mid); }
-.btn-at:active   { transform: scale(0.96); }
-.btn-at:disabled { opacity: .45; cursor: not-allowed; transform: none !important; }
-.hint { font-size: 12px; color: var(--gris); text-align: center; line-height: 1.5; margin-top: 8px; }
-
-/* Progress bar envío */
-.progress-wrap { display: none; margin-bottom: 14px; }
-.progress-wrap.visible { display: block; }
-.progress-label { font-size: 13px; font-weight: 600; color: var(--azul-mid); margin-bottom: 6px; text-align: center; }
-.progress-bar-bg { background: var(--azul-lt); border-radius: 20px; height: 8px; overflow: hidden; }
-.progress-bar    { background: var(--azul-mid); height: 100%; border-radius: 20px; width: 0%; transition: width .3s; }
-
-.alerta { border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 500; margin-bottom: 14px; display: none; }
-.alerta.error   { background: var(--rojo-lt); color: #7B1A14; border: 1px solid rgba(192,57,43,0.2); }
-.alerta.visible { display: block; }
-
-.btn-enviar {
-  width: 100%; padding: 18px; background: var(--azul); color: #fff; border: none;
-  border-radius: var(--r); font-size: 17px; font-weight: 800;
-  cursor: pointer; box-shadow: 0 4px 18px rgba(13,46,110,0.32);
-}
-.btn-enviar:active   { background: var(--azul-mid); }
-.btn-enviar:disabled { background: #94A3B8; cursor: not-allowed; box-shadow: none; }
-.btn-enviar-sub      { display: block; font-size: 12px; font-weight: 400; opacity: .72; margin-top: 3px; }
-
-.sp {
-  display: inline-block; width: 15px; height: 15px;
-  border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
-  border-radius: 50%; animation: spin .7s linear infinite;
-  vertical-align: -3px; margin-right: 6px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Modal */
-.modal-bd {
-  display: none; position: fixed; inset: 0;
-  background: rgba(13,46,110,0.62); z-index: 100;
-  align-items: flex-end; justify-content: center;
-  backdrop-filter: blur(3px);
-}
-.modal-bd.visible { display: flex; }
-.modal {
-  background: #fff; border-radius: 24px 24px 0 0;
-  padding: 30px 24px 40px; width: 100%; max-width: 480px; text-align: center;
-  animation: slideUp .28s cubic-bezier(.34,1.4,.64,1);
-}
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal-check     { width: 70px; height: 70px; background: var(--verde-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 38px; }
-.modal h2        { font-size: 20px; font-weight: 800; color: var(--azul); margin-bottom: 8px; }
-.modal p         { font-size: 14px; color: var(--gris); line-height: 1.6; }
-.modal-cards     { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 20px; }
-.modal-card      { background: var(--azul-pale); border-radius: 10px; padding: 12px; }
-.modal-card-val  { font-size: 26px; font-weight: 800; color: var(--azul); }
-.modal-card-lbl  { font-size: 11px; color: var(--azul-mid); font-weight: 600; margin-top: 2px; }
-.modal-nombre    { font-size: 14px; font-weight: 700; color: var(--azul); background: var(--azul-pale); border-radius: 8px; padding: 10px 14px; margin-bottom: 20px; }
-.btn-modal-ok    { width: 100%; padding: 16px; background: var(--azul); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; }
-.btn-modal-ok:active { background: var(--azul-mid); }
-
-#fileCamara, #fileGaleria { display: none; }
+:root{--azul:#0D2E6E;--azul-mid:#1A4BA8;--azul-acc:#2563EB;--azul-lt:#E6EDF8;--azul-pale:#F0F4FC;--verde-bg:#F0FDF4;--rojo-lt:#FDECEA;--gris:#6B7280;--texto:#111827;--borde:rgba(13,46,110,0.13);--r:14px;--font:'Segoe UI',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--font);background:#EEF2FA;min-height:100vh;color:var(--texto)}
+header{background:var(--azul);padding:13px 18px;display:flex;align-items:center;gap:13px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(13,46,110,0.28)}
+.logo-img{height:42px;filter:brightness(0) invert(1);flex-shrink:0}
+.hdr-div{width:1px;height:36px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.hdr-text h1{color:#fff;font-size:15px;font-weight:700}
+.hdr-text p{color:rgba(255,255,255,0.62);font-size:11px;margin-top:2px}
+.main{padding:18px 14px 40px;max-width:480px;margin:0 auto}
+.card{background:#fff;border-radius:var(--r);border:1px solid var(--borde);padding:18px;margin-bottom:14px;box-shadow:0 1px 8px rgba(13,46,110,0.07)}
+.card-title{font-size:11px;font-weight:700;color:var(--azul-mid);text-transform:uppercase;letter-spacing:.9px;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+label{display:block;font-size:13px;font-weight:500;color:var(--gris);margin-bottom:6px}
+input[type=text]{width:100%;padding:13px 16px;font-size:16px;border:1.5px solid #D1D5DB;border-radius:10px;outline:none;font-family:var(--font);color:var(--texto);text-transform:uppercase;transition:border-color .18s,box-shadow .18s}
+input[type=text]:focus{border-color:var(--azul-acc);box-shadow:0 0 0 3px rgba(37,99,235,0.13)}
+.info-auto{background:var(--azul-pale);border-radius:10px;border:1px solid var(--azul-lt);padding:12px 16px;display:flex;align-items:center;gap:12px}
+.info-auto-val{font-size:17px;font-weight:800;color:var(--azul)}
+.info-auto-lbl{font-size:11px;color:var(--azul-mid);font-weight:600;margin-top:1px}
+.ev-counter{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ev-dots{display:flex;gap:8px}
+.ev-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--azul-lt);background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#CBD5E1;transition:all .2s}
+.ev-dot.lleno{background:var(--azul-mid);border-color:var(--azul-mid);color:#fff}
+.ev-dot.activo{border-color:var(--azul-acc);color:var(--azul-acc);background:var(--azul-pale)}
+.ev-label{font-size:13px;font-weight:600;color:var(--gris)}
+.ev-label span{color:var(--azul);font-weight:800}
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ev-slot{aspect-ratio:3/4;border-radius:10px;border:2px dashed #BFCFE8;background:var(--azul-pale);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;transition:border-color .2s,background .2s}
+.ev-slot:hover:not(.lleno){border-color:var(--azul-acc);background:#E0EAFF}
+.ev-slot.lleno{border:2px solid var(--azul-mid);cursor:default}
+.ev-slot-icon{font-size:26px;margin-bottom:5px}
+.ev-slot-num{font-size:10px;font-weight:700;color:var(--azul-mid)}
+.ev-slot img{width:100%;height:100%;object-fit:cover;display:block}
+.ev-slot .ov{position:absolute;inset:0;background:rgba(13,46,110,0.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.ev-slot.lleno:hover .ov{opacity:1}
+.slot-del{background:rgba(255,255,255,0.92);border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;color:#C0392B;display:flex;align-items:center;justify-content:center}
+.attach-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.btn-at{padding:12px 10px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .15s}
+.btn-at.p{background:var(--azul-mid);color:#fff;border:none}
+.btn-at.s{background:var(--azul-lt);color:var(--azul);border:1.5px solid var(--azul-mid)}
+.btn-at:active{transform:scale(0.96)}
+.btn-at:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.hint{font-size:12px;color:var(--gris);text-align:center;line-height:1.5;margin-top:8px}
+.progress-wrap{display:none;margin-bottom:14px}
+.progress-wrap.visible{display:block}
+.progress-label{font-size:13px;font-weight:600;color:var(--azul-mid);margin-bottom:6px;text-align:center}
+.progress-bar-bg{background:var(--azul-lt);border-radius:20px;height:8px;overflow:hidden}
+.progress-bar{background:var(--azul-mid);height:100%;border-radius:20px;width:0%;transition:width .4s}
+.alerta{border-radius:10px;padding:12px 16px;font-size:14px;font-weight:500;margin-bottom:14px;display:none}
+.alerta.error{background:var(--rojo-lt);color:#7B1A14;border:1px solid rgba(192,57,43,0.2)}
+.alerta.visible{display:block}
+.btn-enviar{width:100%;padding:18px;background:var(--azul);color:#fff;border:none;border-radius:var(--r);font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(13,46,110,0.32)}
+.btn-enviar:active{background:var(--azul-mid)}
+.btn-enviar:disabled{background:#94A3B8;cursor:not-allowed;box-shadow:none}
+.btn-enviar-sub{display:block;font-size:12px;font-weight:400;opacity:.72;margin-top:3px}
+.sp{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal-bd{display:none;position:fixed;inset:0;background:rgba(13,46,110,0.62);z-index:100;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.modal-bd.visible{display:flex}
+.modal{background:#fff;border-radius:24px 24px 0 0;padding:30px 24px 40px;width:100%;max-width:480px;text-align:center;animation:slideUp .28s cubic-bezier(.34,1.4,.64,1)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-check{width:70px;height:70px;background:var(--verde-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:38px}
+.modal h2{font-size:20px;font-weight:800;color:var(--azul);margin-bottom:8px}
+.modal p{font-size:14px;color:var(--gris);line-height:1.6}
+.modal-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 20px}
+.modal-card{background:var(--azul-pale);border-radius:10px;padding:12px}
+.modal-card-val{font-size:26px;font-weight:800;color:var(--azul)}
+.modal-card-lbl{font-size:11px;color:var(--azul-mid);font-weight:600;margin-top:2px}
+.modal-nombre{font-size:14px;font-weight:700;color:var(--azul);background:var(--azul-pale);border-radius:8px;padding:10px 14px;margin-bottom:20px}
+.btn-modal-ok{width:100%;padding:16px;background:var(--azul);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer}
+.btn-modal-ok:active{background:var(--azul-mid)}
+#fileCamara,#fileGaleria{display:none}
 </style>
 </head>
 <body>
-
 <header>
-  <img src="https://i.ibb.co/Tq23KgR9/download-removebg-preview.png" class="logo-img" alt="Cafam"
+  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCAxMjAgNDAiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIHJ4PSI2IiBmaWxsPSIjZmZmZmZmIi8+PHJlY3QgeD0iMiIgeT0iMiIgd2lkdGg9IjM2IiBoZWlnaHQ9IjM2IiByeD0iNCIgZmlsbD0iIzBEMkU2RSIvPjx0ZXh0IHg9IjIwIiB5PSIyNyIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QzwvdGV4dD48dGV4dCB4PSI0OCIgeT0iMTYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMwRDJFNkUiPkNBRkFNPC90ZXh0Pjx0ZXh0IHg9IjQ4IiB5PSIyOSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjgiIGZpbGw9IiMxQTRCQTgiPkJJT0xPR0lDT1M8L3RleHQ+PC9zdmc+" class="logo-img" alt="Cafam"
        onerror="this.outerHTML='<div style=\'width:38px;height:38px;background:#1A4BA8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;\'>🧬</div>'">
   <div class="hdr-div"></div>
-  <div class="hdr-text">
-    <h1>Cafam Biológicos</h1>
-    <p>Registro de evidencias fotográficas</p>
-  </div>
+  <div class="hdr-text"><h1>Cafam Biológicos</h1><p>Registro de evidencias fotográficas</p></div>
 </header>
 
 <div class="main">
-
   <div id="alerta" class="alerta error"></div>
 
-  <!-- MENSAJERO -->
   <div class="card">
     <div class="card-title">
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
@@ -201,14 +99,13 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
            oninput="this.value=this.value.toUpperCase()">
   </div>
 
-  <!-- FECHA AUTO -->
   <div class="card">
     <div class="card-title">
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
       Fecha y hora
     </div>
     <div class="info-auto">
-      <div class="info-auto-icon">🗓️</div>
+      <div style="font-size:22px">🗓️</div>
       <div>
         <div class="info-auto-val" id="fechaDisplay">—</div>
         <div class="info-auto-lbl">Se registrará automáticamente al enviar</div>
@@ -216,11 +113,11 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
     </div>
   </div>
 
-  <!-- EVIDENCIAS -->
   <div class="card">
     <div class="card-title">
       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
       Evidencias fotográficas
+      <span id="evCount" style="margin-left:auto;background:var(--azul-acc);color:#fff;border-radius:20px;font-size:11px;font-weight:700;padding:2px 8px;">0</span>
     </div>
 
     <div class="ev-counter">
@@ -229,35 +126,26 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
         <div class="ev-dot" id="dot1">2</div>
         <div class="ev-dot" id="dot2">3</div>
       </div>
-      <div class="ev-label"><span id="evCount">0</span> de <span>3</span> evidencias</div>
+      <div class="ev-label"><span id="evCountLabel">0</span> de 3 evidencias</div>
     </div>
 
     <div class="ev-grid">
-      <div class="ev-slot" id="slot0" onclick="slotClick(0)">
-        <div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 1</div>
-      </div>
-      <div class="ev-slot" id="slot1" onclick="slotClick(1)">
-        <div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 2</div>
-      </div>
-      <div class="ev-slot" id="slot2" onclick="slotClick(2)">
-        <div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 3</div>
-      </div>
+      <div class="ev-slot" id="slot0" onclick="slotClick(0)"><div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 1</div></div>
+      <div class="ev-slot" id="slot1" onclick="slotClick(1)"><div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 2</div></div>
+      <div class="ev-slot" id="slot2" onclick="slotClick(2)"><div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia 3</div></div>
     </div>
 
     <div class="attach-btns">
       <button class="btn-at p" id="btnCamara"  onclick="dispararInput('camara')">📷 Tomar foto</button>
       <button class="btn-at s" id="btnGaleria" onclick="dispararInput('galeria')">🖼 Galería</button>
     </div>
-
     <input type="file" id="fileCamara"  accept="image/*" capture="environment" onchange="procesarImagen(this)">
     <input type="file" id="fileGaleria" accept="image/*" onchange="procesarImagen(this)">
-
     <p class="hint">Máximo 3 evidencias · Toca una foto para eliminarla</p>
   </div>
 
-  <!-- Barra de progreso envío -->
   <div class="progress-wrap" id="progressWrap">
-    <div class="progress-label" id="progressLabel">Comprimiendo imágenes...</div>
+    <div class="progress-label" id="progressLabel">Enviando...</div>
     <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
   </div>
 
@@ -265,24 +153,16 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
     ✅ Enviar registro
     <span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>
   </button>
-
 </div>
 
-<!-- MODAL ÉXITO -->
 <div class="modal-bd" id="modalBd">
   <div class="modal">
     <div class="modal-check">✅</div>
     <h2>¡Registro enviado!</h2>
-    <p>Las evidencias fueron guardadas<br>y enviadas correctamente.</p>
+    <p>Las evidencias fueron guardadas y enviadas correctamente.</p>
     <div class="modal-cards">
-      <div class="modal-card">
-        <div class="modal-card-val" id="mFotos">0</div>
-        <div class="modal-card-lbl">Evidencias enviadas</div>
-      </div>
-      <div class="modal-card">
-        <div class="modal-card-val" id="mHora">—</div>
-        <div class="modal-card-lbl">Hora de registro</div>
-      </div>
+      <div class="modal-card"><div class="modal-card-val" id="mFotos">0</div><div class="modal-card-lbl">Evidencias enviadas</div></div>
+      <div class="modal-card"><div class="modal-card-val" id="mHora">—</div><div class="modal-card-lbl">Hora de registro</div></div>
     </div>
     <div class="modal-nombre" id="mMensajero">—</div>
     <p style="font-size:12px;color:#9CA3AF;margin-bottom:20px;">La doctora y coordinadores recibirán las evidencias por correo.</p>
@@ -291,225 +171,279 @@ input[type="text"]:focus { border-color: var(--azul-acc); box-shadow: 0 0 0 3px 
 </div>
 
 <script>
-// ─── CONFIGURACIÓN ─────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYThgJ0zlmGdFvA5H1reRoI3BJpKxj3FEGezqixaLPrLAfz-Sxs32mvviL_hH1hBFC/exec';
-// ───────────────────────────────────────────────────────────────
+// ─── CONFIGURACIÓN ──────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEWvgQ9ekzbvXG5h3LW6LpL-LRx8vHl1QSjpaGbs8xDzdaTmlg3xapPitB7wz1x5W4/exec';
 
-const MAX_EV       = 3;
-const MAX_W        = 1200;   // px máximo antes de comprimir
-const JPEG_QUALITY = 0.75;   // calidad JPEG (0-1)
-let evidencias     = [null, null, null];
-let slotActivo     = 0;
+// ID de la carpeta de Drive donde se suben las fotos
+// Para obtenerlo: abre la carpeta en Drive → copia el ID de la URL
+// https://drive.google.com/drive/folders/ESTE_ES_EL_ID
+const DRIVE_FOLDER_ID = '1ySaq6DQ6WGPz-feshyeR3XyTLD_ap0P7';
+// ────────────────────────────────────────────────────────────────
 
-// ── RELOJ ──────────────────────────────────────────────────────
-function padZ(n) { return String(n).padStart(2,'0'); }
-function horaTexto(d) { return padZ(d.getHours())+':'+padZ(d.getMinutes()); }
-function fechaCompleta(d) {
+// Token en caché — se renueva automáticamente desde el Apps Script
+let _tokenCache    = null;
+let _tokenCachedAt = 0;
+const TOKEN_TTL_MS = 55 * 60 * 1000; // 55 min (token dura 60, renovamos antes)
+
+async function getOAuthToken() {
+  const ahora = Date.now();
+  if (_tokenCache && (ahora - _tokenCachedAt) < TOKEN_TTL_MS) {
+    return _tokenCache; // usar caché si aún es válido
+  }
+  // Pedir token fresco al Apps Script
+  const resp = await fetch(APPS_SCRIPT_URL + '?action=token');
+  const data = await resp.json();
+  if (!data.ok || !data.token) throw new Error('No se pudo obtener el token de autenticación.');
+  _tokenCache    = data.token;
+  _tokenCachedAt = ahora;
+  return _tokenCache;
+}
+
+const MAX_EV  = 3;
+const MAX_W   = 1280;
+const QUALITY = 0.82;
+let evidencias = [null, null, null];
+let slotActivo = 0;
+
+// ── Reloj ────────────────────────────────────────────────────────
+function padZ(n){return String(n).padStart(2,'0')}
+function horaTexto(d){return padZ(d.getHours())+':'+padZ(d.getMinutes())}
+function fechaCompleta(d){
   const D=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   const M=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   return D[d.getDay()]+' '+d.getDate()+' de '+M[d.getMonth()]+', '+horaTexto(d);
 }
-function actualizarFecha() {
-  document.getElementById('fechaDisplay').textContent = fechaCompleta(new Date());
-}
+function actualizarFecha(){document.getElementById('fechaDisplay').textContent=fechaCompleta(new Date())}
 
-// ── COMPRIMIR IMAGEN ──────────────────────────────────────────
-// Redimensiona y convierte a JPEG para que el payload sea manejable
-function comprimirImagen(dataUrl) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      let { width, height } = img;
-      if (width > MAX_W) { height = Math.round(height * MAX_W / width); width = MAX_W; }
-      const canvas = document.createElement('canvas');
-      canvas.width  = width;
-      canvas.height = height;
-      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-      resolve(canvas.toDataURL('image/jpeg', JPEG_QUALITY));
+// ── Comprimir imagen ─────────────────────────────────────────────
+function comprimirImagen(dataUrl){
+  return new Promise(resolve=>{
+    const img=new Image();
+    img.onload=()=>{
+      let{width:w,height:h}=img;
+      if(w>MAX_W){h=Math.round(h*MAX_W/w);w=MAX_W}
+      const c=document.createElement('canvas');
+      c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      resolve(c.toDataURL('image/jpeg',QUALITY));
     };
-    img.src = dataUrl;
+    img.src=dataUrl;
   });
 }
 
-// ── SLOTS ─────────────────────────────────────────────────────
-function slotClick(idx) {
-  if (evidencias[idx]) return; // lleno → el overlay maneja el borrado
-  slotActivo = idx;
-  const esMobil = /Mobi|Android/i.test(navigator.userAgent);
-  document.getElementById(esMobil ? 'fileCamara' : 'fileGaleria').click();
-}
+// ── Subir imagen a Google Drive con la API de Drive ──────────────
+// Usa multipart upload: JSON metadata + binary image en un solo POST
+// No pasa por Apps Script, va directo a la API de Drive
+async function subirImagen(dataUrl, nombre){
+  // Obtener token fresco (automático, sin renovación manual)
+  const token = await getOAuthToken();
 
-function dispararInput(tipo) {
-  if (evidencias.filter(Boolean).length >= MAX_EV) {
-    mostrarAlerta('Ya tienes 3 evidencias. Elimina una para agregar.');
-    return;
+  const base64 = dataUrl.split(',')[1];
+  const bin = Uint8Array.from(atob(base64), c=>c.charCodeAt(0));
+
+  const meta = JSON.stringify({
+    name: nombre,
+    parents: DRIVE_FOLDER_ID ? [DRIVE_FOLDER_ID] : []
+  });
+
+  const boundary = 'cafam_boundary_' + Date.now();
+  const body = [
+    '--' + boundary,
+    'Content-Type: application/json; charset=UTF-8',
+    '',
+    meta,
+    '--' + boundary,
+    'Content-Type: image/jpeg',
+    '',
+    ''
+  ].join('\r\n');
+
+  const bodyStart = new TextEncoder().encode(body);
+  const bodyEnd   = new TextEncoder().encode('\r\n--' + boundary + '--');
+  const fullBody  = new Uint8Array(bodyStart.length + bin.length + bodyEnd.length);
+  fullBody.set(bodyStart, 0);
+  fullBody.set(bin, bodyStart.length);
+  fullBody.set(bodyEnd, bodyStart.length + bin.length);
+
+  const resp = await fetch(
+    'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'multipart/related; boundary=' + boundary,
+      },
+      body: fullBody
+    }
+  );
+
+  if (!resp.ok) {
+    const txt = await resp.text();
+    throw new Error('Drive upload error ' + resp.status + ': ' + txt);
   }
-  slotActivo = evidencias.findIndex(e => !e);
-  document.getElementById(tipo === 'camara' ? 'fileCamara' : 'fileGaleria').click();
+
+  const data = await resp.json();
+  return data.id;
 }
 
-function procesarImagen(input) {
-  if (!input.files || !input.files[0]) return;
-  const file   = input.files[0];
-  const reader = new FileReader();
-  reader.onload = async e => {
-    const compressed = await comprimirImagen(e.target.result);
-    const base64     = compressed.split(',')[1];
-    evidencias[slotActivo] = {
-      dataUrl: compressed,
-      base64,
-      tipo:   'image/jpeg',
-      nombre: (file.name || 'evidencia').replace(/\.[^.]+$/, '') + '_' + (slotActivo+1) + '.jpg'
+// ── Slots ─────────────────────────────────────────────────────────
+function slotClick(idx){
+  if(evidencias[idx])return;
+  slotActivo=idx;
+  const mob=/Mobi|Android/i.test(navigator.userAgent);
+  document.getElementById(mob?'fileCamara':'fileGaleria').click();
+}
+
+function dispararInput(tipo){
+  if(evidencias.filter(Boolean).length>=MAX_EV){mostrarAlerta('Ya tienes 3 evidencias.');return}
+  slotActivo=evidencias.findIndex(e=>!e);
+  document.getElementById(tipo==='camara'?'fileCamara':'fileGaleria').click();
+}
+
+function procesarImagen(input){
+  if(!input.files||!input.files[0])return;
+  const file=input.files[0];
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    const comp=await comprimirImagen(e.target.result);
+    evidencias[slotActivo]={
+      dataUrl:comp,
+      nombre:(file.name||'evidencia').replace(/\.[^.]+$/,'')+'_'+(slotActivo+1)+'.jpg'
     };
     renderSlots();
   };
   reader.readAsDataURL(file);
-  input.value = '';
+  input.value='';
 }
 
-function eliminarEvidencia(idx) {
-  evidencias[idx] = null;
-  renderSlots();
-}
+function eliminarEvidencia(idx){evidencias[idx]=null;renderSlots()}
 
-function renderSlots() {
-  const llenos = evidencias.filter(Boolean).length;
-  document.getElementById('evCount').textContent = llenos;
-
-  for (let i = 0; i < MAX_EV; i++) {
-    const slot = document.getElementById('slot' + i);
-    const dot  = document.getElementById('dot' + i);
-    const ev   = evidencias[i];
-
-    if (ev) {
+function renderSlots(){
+  const llenos=evidencias.filter(Boolean).length;
+  document.getElementById('evCount').textContent=llenos;
+  document.getElementById('evCountLabel').textContent=llenos;
+  for(let i=0;i<MAX_EV;i++){
+    const slot=document.getElementById('slot'+i);
+    const dot=document.getElementById('dot'+i);
+    const ev=evidencias[i];
+    if(ev){
       slot.classList.add('lleno');
-      slot.innerHTML = `<img src="${ev.dataUrl}" alt="Evidencia ${i+1}">
-        <div class="ov"><button class="slot-del" onclick="event.stopPropagation();eliminarEvidencia(${i})">✕</button></div>`;
-      dot.className = 'ev-dot lleno';
-      dot.textContent = '✓';
-    } else {
+      slot.innerHTML='<img src="'+ev.dataUrl+'" alt="Ev ">'+
+        '<div class="ov"><button class="slot-del" onclick="event.stopPropagation();eliminarEvidencia('+i+')">✕</button></div>';
+      dot.className='ev-dot lleno';dot.textContent='✓';
+    }else{
       slot.classList.remove('lleno');
-      slot.innerHTML = `<div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia ${i+1}</div>`;
-      const primerVacio = evidencias.findIndex(e => !e);
-      dot.className = 'ev-dot' + (i === primerVacio ? ' activo' : '');
-      dot.textContent = String(i+1);
+      slot.innerHTML='<div class="ev-slot-icon">📷</div><div class="ev-slot-num">Evidencia '+(i+1)+'</div>';
+      const pv=evidencias.findIndex(e=>!e);
+      dot.className='ev-dot'+(i===pv?' activo':'');dot.textContent=String(i+1);
     }
   }
-
-  const lleno = llenos >= MAX_EV;
-  document.getElementById('btnCamara').disabled  = lleno;
-  document.getElementById('btnGaleria').disabled = lleno;
+  const full=llenos>=MAX_EV;
+  document.getElementById('btnCamara').disabled=full;
+  document.getElementById('btnGaleria').disabled=full;
 }
 
-// ── PROGRESO ──────────────────────────────────────────────────
-function setProgress(pct, label) {
-  document.getElementById('progressBar').style.width   = pct + '%';
-  document.getElementById('progressLabel').textContent = label;
-  document.getElementById('progressWrap').classList.toggle('visible', pct < 100 && pct > 0);
+// ── Progreso / Alertas ────────────────────────────────────────────
+function setProgress(pct,label){
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent=label;
+  document.getElementById('progressWrap').classList.toggle('visible',pct>0&&pct<100);
 }
 
-// ── ALERTA ────────────────────────────────────────────────────
-function mostrarAlerta(msg) {
-  const el = document.getElementById('alerta');
-  el.textContent = msg;
-  el.classList.add('visible');
-  setTimeout(() => el.classList.remove('visible'), 5000);
+function mostrarAlerta(msg){
+  const el=document.getElementById('alerta');
+  el.textContent=msg;el.classList.add('visible');
+  setTimeout(()=>el.classList.remove('visible'),5000);
 }
 
-// ── MODAL ─────────────────────────────────────────────────────
-function abrirModal(mensajero, fotos, hora) {
-  document.getElementById('mMensajero').textContent = '👤 ' + mensajero;
-  document.getElementById('mFotos').textContent     = fotos;
-  document.getElementById('mHora').textContent      = hora;
+// ── Modal ─────────────────────────────────────────────────────────
+function abrirModal(mensajero,fotos,hora){
+  document.getElementById('mMensajero').textContent='👤 '+mensajero;
+  document.getElementById('mFotos').textContent=fotos;
+  document.getElementById('mHora').textContent=hora;
   document.getElementById('modalBd').classList.add('visible');
 }
-function cerrarModal() {
+function cerrarModal(){
   document.getElementById('modalBd').classList.remove('visible');
-  evidencias = [null, null, null];
-  renderSlots();
-  document.getElementById('mensajero').value = '';
+  evidencias=[null,null,null];renderSlots();
+  document.getElementById('mensajero').value='';
 }
 
-// ── ENVÍO ─────────────────────────────────────────────────────
-// TÉCNICA DEFINITIVA:
-// fetch con Content-Type "text/plain" NO dispara preflight CORS,
-// por lo que el browser lo envía directamente.
-// Apps Script recibe el body en e.postData.contents y lo parsea como JSON.
-// Esto soluciona el problema de datos que no llegan.
-async function enviarDatos() {
-  const mensajero = document.getElementById('mensajero').value.trim().toUpperCase();
-  const fotos     = evidencias.filter(Boolean);
+// ── ENVÍO PRINCIPAL ───────────────────────────────────────────────
+async function enviarDatos(){
+  const mensajero=document.getElementById('mensajero').value.trim().toUpperCase();
+  const fotos=evidencias.filter(Boolean);
+  if(!mensajero){mostrarAlerta('⚠️ Escribe tu nombre.');return}
+  if(fotos.length===0){mostrarAlerta('⚠️ Adjunta al menos una evidencia.');return}
 
-  if (!mensajero)         { mostrarAlerta('⚠️ Escribe tu nombre antes de enviar.'); return; }
-  if (fotos.length === 0) { mostrarAlerta('⚠️ Adjunta al menos una evidencia fotográfica.'); return; }
+  const btn=document.getElementById('btnEnviar');
+  btn.disabled=true;
+  btn.innerHTML='<span class="sp"></span> Enviando...';
 
-  const btn = document.getElementById('btnEnviar');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="sp"></span> Enviando...';
+  const ahora=new Date();
+  const hora=horaTexto(ahora);
+  const fecha=ahora.toLocaleDateString('es-CO');
 
-  setProgress(20, 'Preparando datos...');
+  try{
+    // ── Subir imágenes a Drive y obtener sus IDs ────────────────
+    const fileIds=[null,null,null];
+    let uploadadas=0;
+    const total=fotos.length;
 
-  const ahora = new Date();
-  const hora  = horaTexto(ahora);
-  const fecha = ahora.toLocaleDateString('es-CO');
-
-  const payload = JSON.stringify({
-    mensajero,
-    fecha,
-    hora,
-    timestamp: ahora.toISOString(),
-    evidencias: evidencias.map((ev, i) => ev
-      ? { indice: i + 1, base64: ev.base64, nombre: ev.nombre }
-      : null
-    )
-  });
-
-  setProgress(60, 'Enviando evidencias...');
-
-  try {
-    // Content-Type text/plain evita el preflight CORS OPTIONS
-    // Apps Script lo recibe en e.postData.contents — solución probada
-    const resp = await fetch(APPS_SCRIPT_URL, {
-      method:  'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body:    payload
-    });
-
-    setProgress(90, 'Guardando en Sheets...');
-
-    // Con no-cors no podemos leer la respuesta, pero los datos llegaron.
-    // Con cors (Access Anyone) sí podemos verificar:
-    let ok = true;
-    try {
-      const json = await resp.json();
-      ok = json.ok !== false;
-    } catch(e) { /* redirect o no-cors: asumimos ok */ }
-
-    setProgress(0, '');
-
-    if (ok) {
-      const cant = fotos.length;
-      evidencias = [null, null, null];
-      renderSlots();
-      document.getElementById('mensajero').value = '';
-      abrirModal(mensajero, cant, hora);
-    } else {
-      mostrarAlerta('⚠️ El servidor respondió con error. Reintenta.');
+    for(let i=0;i<3;i++){
+      if(!evidencias[i])continue;
+      uploadadas++;
+      setProgress(Math.round(uploadadas/total*70),'Subiendo evidencia '+uploadadas+' de '+total+'...');
+      try{
+        const id=await subirImagen(evidencias[i].dataUrl,evidencias[i].nombre);
+        fileIds[i]=id;
+      }catch(uploadErr){
+        console.error('Upload error img '+i,uploadErr);
+        // Si falla la subida de una imagen, continuar con las demás
+      }
     }
 
-  } catch(err) {
-    setProgress(0, '');
-    mostrarAlerta('❌ Error de conexión. Verifica internet e intenta de nuevo.');
-    console.error('Fetch error:', err);
+    // ── Enviar registro al Apps Script ──────────────────────────
+    setProgress(80,'Guardando registro...');
+    const payload=JSON.stringify({
+      mensajero,fecha,hora,
+      timestamp:ahora.toISOString(),
+      fileIds
+    });
+
+    const resp=await fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain'},
+      body:payload
+    });
+
+    setProgress(95,'Finalizando...');
+    let ok=true;
+    try{const j=await resp.json();ok=j.ok!==false}catch(e){}
+
+    setProgress(0,'');
+
+    if(ok){
+      const cant=fotos.length;
+      evidencias=[null,null,null];renderSlots();
+      document.getElementById('mensajero').value='';
+      abrirModal(mensajero,cant,hora);
+    }else{
+      mostrarAlerta('⚠️ Error en servidor. Reintenta.');
+    }
+
+  }catch(err){
+    setProgress(0,'');
+    mostrarAlerta('❌ Error al enviar. Verifica tu conexión.');
+    console.error('Envio error:',err);
   }
 
-  btn.disabled = false;
-  btn.innerHTML = '✅ Enviar registro<span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>';
+  btn.disabled=false;
+  btn.innerHTML='✅ Enviar registro<span class="btn-enviar-sub">Guarda en Google Sheets y envía evidencias por correo</span>';
 }
 
-// ── INIT ──────────────────────────────────────────────────────
 actualizarFecha();
-setInterval(actualizarFecha, 30000);
+setInterval(actualizarFecha,30000);
 </script>
 </body>
 </html>
